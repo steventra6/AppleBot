@@ -84,6 +84,12 @@ If everything is working, you should see the text `Apple Bot is ready!` logged t
 ## Logging ✍️
 
 Apple Bot uses [Loguru](https://github.com/Delgan/loguru) to log all system output. The logs are found in `./logs` by default. Logs are created daily, but this can be changed in the logging configuration.
+
+## Documentation 📓
+
+Documentation can be found in the `docs` directory. I am using [mkdocs](https://www.mkdocs.org/) to build the documentation files. 
+
+Run `mkdocs serve` and navigate to http://127.0.0.1:8000/ to view the documentation on your local machine.
 ## Authors 📖
 
 - [Steven Tra (@steventra6)](https://github.com/steventra6)
