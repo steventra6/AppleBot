@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "applebot"
+version = "0.1.0"
+description = "A bot for managing age-related roles and scheduling reminders for events in the KID APPLE! Discord Server"
+authors = ["Steven Tra"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+discord = "^2.3.2"
+setuptools = "^75.1.0"
+loguru = "^0.7.2"
+datetime = "^5.5"
+numpy = "^2.1.1"
+requests = "^2.32.3"
+asyncio = "^3.4.3"
+pytz = "^2024.2"
+python-dotenv = "^1.0.1"
+mkdocs = "^1.6.1"
+mkdocs-material = "^9.5.39"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,10 @@
+site_name: Apple Bot!
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+
+extra_css:
+  - stylesheets/extra.css

@@ -1,0 +1,209 @@
+2024-09-29 12:34:55.817 | INFO     | bot:on_ready:217 - Apple Bot is ready!
+2024-09-29 12:36:12.861 | DEBUG    | bot:on_scheduled_event_create:244 - User kidaspire created the event "VRChat Night!" at 2024-09-29 17:00:00+00:00 UTC!
+2024-09-29 12:36:12.861 | DEBUG    | bot:on_scheduled_event_create:245 - Description of event: @Overwatch VRChat Night!!!
+2024-09-29 12:36:12.861 | DEBUG    | bot:on_scheduled_event_create:249 - Role(s) mentioned for event: ['@Overwatch']
+2024-09-29 12:36:12.861 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-29 12:36:12.861 | DEBUG    | bot:on_scheduled_event_create:265 - Message sent to updates channel: @Overwatch VRChat Night!!!
+2024-09-29 12:36:13.201 | DEBUG    | bot:schedule_reminders:172 - It is currently 2024-09-29 16:36:13.201723+00:00 UTC. The event titled "VRChat Night!" is starting in 23.779971283333335 minutes.
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VRChat Night!"** is starting in 15 minutes! Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VRChat Night!" 15 minutes before the event...
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VRChat Night!"** is starting in 10 minutes! Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VRChat Night!" 10 minutes before the event...
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VRChat Night!"** is starting in 5 minutes! Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VRChat Night!" 5 minutes before the event...
+2024-09-29 12:36:13.203 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VRChat Night!"** is starting in 1 minute! Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:36:13.204 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VRChat Night!" 1 minutes before the event...
+2024-09-29 12:36:13.204 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VRChat Night!"** is starting **RIGHT NOW!** Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:36:13.204 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VRChat Night!" 0 minutes before the event...
+2024-09-29 12:50:53.321 | INFO     | bot:run_discord_bot:357 - Apple Bot is shutting down...
+2024-09-29 12:51:10.165 | INFO     | bot:on_ready:217 - Apple Bot is ready!
+2024-09-29 12:51:20.280 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-29 12:56:12.258 | INFO     | bot:on_ready:220 - Apple Bot is ready!
+2024-09-29 12:56:22.358 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-29 12:56:22.358 | DEBUG    | bot:schedule_reminders:175 - It is currently 2024-09-29 16:56:22.358241+00:00 UTC. The event titled "VRChat Night!" is starting in 3.6273626500000002 minutes.
+2024-09-29 12:56:22.358 | DEBUG    | bot:create_reminder:161 - <@&1174914173319266404> **"VRChat Night!"** is starting in 1 minute! Please come join us in VRChat if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:56:22.358 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night!" 1 minutes before the event...
+2024-09-29 12:56:22.358 | DEBUG    | bot:create_reminder:161 - <@&1174914173319266404> **"VRChat Night!"** is starting **RIGHT NOW!** Please come join us in <#None> if you would like to participate! https://discord.com/events/878771899612680243/1289989114841792575
+2024-09-29 12:56:22.358 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night!" 0 minutes before the event...
+2024-09-29 13:08:45.962 | INFO     | bot:run_discord_bot:360 - Apple Bot is shutting down...
+2024-09-29 13:11:56.230 | INFO     | bot:on_ready:220 - Apple Bot is ready!
+2024-09-29 13:12:06.346 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-29 13:12:38.974 | INFO     | bot:run_discord_bot:362 - Apple Bot is shutting down...
+2024-09-29 13:14:27.641 | INFO     | bot:on_ready:220 - Apple Bot is ready!
+2024-09-29 13:14:37.772 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-29 13:15:16.155 | DEBUG    | bot:on_scheduled_event_create:247 - User kidaspire created the event "VRChat Night Redux!" at 2024-09-29 17:30:00.694000+00:00 UTC!
+2024-09-29 13:15:16.155 | DEBUG    | bot:on_scheduled_event_create:248 - Description of event: 
+2024-09-29 13:15:16.155 | DEBUG    | bot:on_scheduled_event_create:252 - Role(s) mentioned for event: []
+2024-09-29 13:15:16.155 | DEBUG    | bot:on_scheduled_event_create:270 - Message sent to updates channel: 
+2024-09-29 13:15:16.363 | DEBUG    | bot:schedule_reminders:175 - It is currently 2024-09-29 17:15:16.363894+00:00 UTC. The event titled "VRChat Night Redux!" is starting in 14.7388351 minutes.
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:161 - **"VRChat Night Redux!"** is starting in 10 minutes! Please come join us in VRChat if you would like to participate! https://discord.com/events/878771899612680243/1289998943933042780
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night Redux!" 10 minutes before the event...
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:161 - **"VRChat Night Redux!"** is starting in 5 minutes! Please come join us in VRChat if you would like to participate! https://discord.com/events/878771899612680243/1289998943933042780
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night Redux!" 5 minutes before the event...
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:161 - **"VRChat Night Redux!"** is starting in 1 minute! Please come join us in VRChat if you would like to participate! https://discord.com/events/878771899612680243/1289998943933042780
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night Redux!" 1 minutes before the event...
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:161 - **"VRChat Night Redux!"** is starting **RIGHT NOW!** Please come join us in VRChat if you would like to participate! https://discord.com/events/878771899612680243/1289998943933042780
+2024-09-29 13:15:16.364 | DEBUG    | bot:create_reminder:166 - Scheduling reminder message for "VRChat Night Redux!" 0 minutes before the event...
+2024-09-29 14:05:30.800 | INFO     | bot:run_discord_bot:362 - Apple Bot is shutting down...
+2024-09-29 14:49:02.117 | INFO     | bot:on_ready:218 - Apple Bot is ready!
+2024-09-29 14:49:03.656 | INFO     | bot:run_discord_bot:360 - Apple Bot is shutting down...
+2024-09-29 15:00:30.184 | INFO     | bot:on_ready:219 - Apple Bot is ready!
+2024-09-29 15:00:32.364 | INFO     | bot:run_discord_bot:362 - Apple Bot is shutting down...
+2024-09-29 15:27:20.695 | INFO     | bot:on_ready:217 - Apple Bot is ready!
+2024-09-29 15:27:23.686 | INFO     | bot:run_discord_bot:358 - Apple Bot is shutting down...
+2024-09-29 15:39:57.124 | INFO     | bot:on_ready:208 - Apple Bot is ready!
+2024-09-29 15:46:03.555 | INFO     | bot:run_discord_bot:349 - Apple Bot is shutting down...
+2024-09-29 15:46:07.921 | INFO     | bot:on_ready:208 - Apple Bot is ready!
+2024-09-29 15:47:04.934 | INFO     | bot:on_ready:208 - Apple Bot is ready!
+2024-09-29 15:47:37.436 | INFO     | bot:run_discord_bot:349 - Apple Bot is shutting down...
+2024-09-29 15:47:53.295 | INFO     | bot:on_ready:208 - Apple Bot is ready!
+2024-09-29 15:48:04.933 | DEBUG    | bot:on_message:286 - Message sent: <Message id=1290037401565003909 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 15:48:04.933 | INFO     | bot:on_message:297 - User kidaspire entered the date 01/01/2016 in the bday-for-verification channel.
+2024-09-29 15:48:04.933 | INFO     | bot:on_message:298 - User kidaspire's birthdate is 01/01/2016
+2024-09-29 15:48:04.933 | INFO     | bot:on_message:306 - User kidaspire is 8 years old
+2024-09-29 15:48:04.933 | ERROR    | bot:on_message:346 - 'NoneType' object has no attribute 'id'
+2024-09-29 15:48:33.408 | INFO     | bot:run_discord_bot:349 - Apple Bot is shutting down...
+2024-09-29 15:49:17.498 | INFO     | bot:on_ready:208 - Apple Bot is ready!
+2024-09-29 15:49:23.557 | DEBUG    | bot:on_message:286 - Message sent: <Message id=1290037731451342868 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 15:49:23.557 | INFO     | bot:on_message:297 - User kidaspire entered the date 01/01/2016 in the bday-for-verification channel.
+2024-09-29 15:49:23.558 | INFO     | bot:on_message:298 - User kidaspire's birthdate is 01/01/2016
+2024-09-29 15:49:23.558 | INFO     | bot:on_message:306 - User kidaspire is 8 years old
+2024-09-29 15:49:23.558 | INFO     | bot:add_age_role:65 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 15:49:23.960 | INFO     | bot:add_age_role:74 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-29 15:49:23.960 | DEBUG    | bot:on_message:330 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:01 January
+2024-09-29 15:49:35.692 | DEBUG    | bot:on_message:286 - Message sent: <Message id=1290037781921403024 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 15:49:35.692 | INFO     | bot:on_message:297 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-29 15:49:35.692 | INFO     | bot:on_message:298 - User kidaspire's birthdate is 06/06/1997
+2024-09-29 15:49:35.693 | INFO     | bot:on_message:306 - User kidaspire is 27 years old
+2024-09-29 15:49:35.693 | INFO     | bot:add_age_role:65 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 15:49:35.980 | INFO     | bot:add_age_role:72 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-29 15:49:35.980 | DEBUG    | bot:on_message:330 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-29 15:50:38.962 | DEBUG    | bot:on_scheduled_event_create:235 - User kidaspire created the event "Overwatch 6v6s!!!" at 2024-09-29 20:00:00.260000+00:00 UTC!
+2024-09-29 15:50:38.962 | DEBUG    | bot:on_scheduled_event_create:236 - Description of event: @Overwatch @Minor @Adult yo get in here
+2024-09-29 15:50:38.962 | DEBUG    | bot:on_scheduled_event_create:240 - Role(s) mentioned for event: ['@Overwatch', '@Minor', '@Adult']
+2024-09-29 15:50:38.962 | DEBUG    | bot:get_roles_to_ids:110 - Role Overwatch id is 1174914173319266404
+2024-09-29 15:50:38.962 | DEBUG    | bot:get_roles_to_ids:110 - Role Minor id is 1168745586414063766
+2024-09-29 15:50:38.962 | DEBUG    | bot:get_roles_to_ids:110 - Role Adult id is 1168745522593550467
+2024-09-29 15:50:38.962 | DEBUG    | bot:on_scheduled_event_create:258 - Message sent to updates channel: @Overwatch @Minor @Adult yo get in here
+2024-09-29 15:50:39.162 | DEBUG    | bot:schedule_reminders:163 - It is currently 2024-09-29 19:50:39.162959+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 9.35161735 minutes.
+2024-09-29 15:50:39.162 | DEBUG    | bot:create_reminder:142 - <@&1174914173319266404> <@&1168745586414063766> <@&1168745522593550467> **"Overwatch 6v6s!!!"** is starting in 5 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1290038046997221476
+2024-09-29 15:50:39.163 | DEBUG    | bot:create_reminder:147 - Scheduling reminder message for "Overwatch 6v6s!!!" 5 minutes before the event...
+2024-09-29 15:50:39.163 | DEBUG    | bot:create_reminder:142 - <@&1174914173319266404> <@&1168745586414063766> <@&1168745522593550467> **"Overwatch 6v6s!!!"** is starting in 1 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1290038046997221476
+2024-09-29 15:50:39.163 | DEBUG    | bot:create_reminder:147 - Scheduling reminder message for "Overwatch 6v6s!!!" 1 minutes before the event...
+2024-09-29 15:50:39.163 | DEBUG    | bot:create_reminder:142 - <@&1174914173319266404> <@&1168745586414063766> <@&1168745522593550467> **"Overwatch 6v6s!!!"** is starting **RIGHT NOW!** Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1290038046997221476
+2024-09-29 15:50:39.163 | DEBUG    | bot:create_reminder:147 - Scheduling reminder message for "Overwatch 6v6s!!!" 0 minutes before the event...
+2024-09-29 16:05:44.163 | INFO     | bot:run_discord_bot:349 - Apple Bot is shutting down...
+2024-09-29 16:40:18.556 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 16:40:20.152 | INFO     | bot:run_discord_bot:353 - Apple Bot is shutting down...
+2024-09-29 17:17:20.983 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 17:18:52.637 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290060251231424597 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 17:18:52.637 | INFO     | bot:on_message:301 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-29 17:18:52.638 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 06/06/1997
+2024-09-29 17:18:52.638 | INFO     | bot:on_message:310 - User kidaspire is 27 years old
+2024-09-29 17:18:52.773 | INFO     | bot:add_age_role:76 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-29 17:18:52.773 | DEBUG    | bot:on_message:334 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-29 17:19:01.877 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290060290024800337 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 17:19:01.878 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2016 in the bday-for-verification channel.
+2024-09-29 17:19:01.878 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2016
+2024-09-29 17:19:01.878 | INFO     | bot:on_message:310 - User kidaspire is 8 years old
+2024-09-29 17:19:01.879 | INFO     | bot:add_age_role:69 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 17:19:02.198 | INFO     | bot:add_age_role:78 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-29 17:19:02.198 | DEBUG    | bot:on_message:334 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:01 January
+2024-09-29 17:19:45.150 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290060471507881994 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 17:19:45.150 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 17:19:45.150 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 17:19:45.151 | INFO     | bot:on_message:310 - User kidaspire is -1 years old
+2024-09-29 17:19:45.309 | INFO     | bot:add_age_role:78 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-29 17:19:45.309 | DEBUG    | bot:on_message:334 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:01 January
+2024-09-29 18:15:48.411 | INFO     | bot:run_discord_bot:353 - Apple Bot is shutting down...
+2024-09-29 18:15:57.050 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 18:16:04.404 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290074645239824424 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:16:04.405 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:16:04.405 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:17:00.705 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290074881190264885 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:17:00.705 | INFO     | bot:on_message:301 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-29 18:17:00.706 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 06/06/1997
+2024-09-29 18:17:00.706 | INFO     | bot:on_message:329 - User kidaspire is 27 years old
+2024-09-29 18:17:00.706 | INFO     | bot:add_age_role:69 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 18:17:01.057 | INFO     | bot:add_age_role:76 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-29 18:17:01.057 | DEBUG    | bot:on_message:347 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-29 18:17:14.105 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290074937612308541 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:17:14.106 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:17:14.106 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:17:44.470 | INFO     | bot:run_discord_bot:363 - Apple Bot is shutting down...
+2024-09-29 18:20:32.198 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 18:20:40.529 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290075803391889498 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:20:40.529 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:20:40.530 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:20:40.530 | ERROR    | bot:on_message:361 - can only concatenate str (not "int") to str
+2024-09-29 18:21:11.449 | INFO     | bot:run_discord_bot:364 - Apple Bot is shutting down...
+2024-09-29 18:21:31.536 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 18:21:43.941 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290076068983734354 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:21:43.941 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:21:43.942 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:22:07.345 | INFO     | bot:run_discord_bot:364 - Apple Bot is shutting down...
+2024-09-29 18:22:13.245 | INFO     | bot:on_ready:212 - Apple Bot is ready!
+2024-09-29 18:22:20.993 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290076224760184882 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:22:20.994 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:22:20.994 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:22:40.993 | DEBUG    | bot:on_message:290 - Message sent: <Message id=1290076308260524065 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:22:40.993 | INFO     | bot:on_message:301 - User kidaspire entered the date 01/01/2020 in the bday-for-verification channel.
+2024-09-29 18:22:40.993 | INFO     | bot:on_message:302 - User kidaspire's birthdate is 01/01/2020
+2024-09-29 18:22:40.994 | INFO     | bot:on_message:327 - User kidaspire is 4 years old
+2024-09-29 18:22:40.994 | INFO     | bot:add_age_role:69 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 18:22:41.402 | INFO     | bot:add_age_role:78 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-29 18:22:41.403 | DEBUG    | bot:on_message:345 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:01 January
+2024-09-29 18:23:25.533 | INFO     | bot:run_discord_bot:364 - Apple Bot is shutting down...
+2024-09-29 18:50:47.027 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 18:51:05.589 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290083458382827592 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:51:05.590 | INFO     | bot:on_message:303 - User kidaspire entered the date 01/01/2020 in the bday-for-verification channel.
+2024-09-29 18:51:05.590 | INFO     | bot:on_message:304 - User kidaspire's birthdate is 01/01/2020
+2024-09-29 18:51:43.582 | INFO     | bot:run_discord_bot:375 - Apple Bot is shutting down...
+2024-09-29 18:54:01.606 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 18:54:11.565 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290084238351274024 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:54:11.566 | INFO     | bot:on_message:303 - User kidaspire entered the date 01/01/2025 in the bday-for-verification channel.
+2024-09-29 18:54:11.566 | INFO     | bot:on_message:304 - User kidaspire's birthdate is 01/01/2025
+2024-09-29 18:54:11.567 | INFO     | bot:on_message:316 - User kidaspire entered an invalid birthdate.
+2024-09-29 18:54:26.953 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290084302930968686 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 18:54:26.954 | INFO     | bot:on_message:303 - User kidaspire entered the date 01/01/2020 in the bday-for-verification channel.
+2024-09-29 18:54:26.954 | INFO     | bot:on_message:304 - User kidaspire's birthdate is 01/01/2020
+2024-09-29 18:54:26.955 | INFO     | bot:on_message:326 - User kidaspire is 4 years old, too young to be in this server...
+2024-09-29 18:55:10.429 | INFO     | bot:run_discord_bot:377 - Apple Bot is shutting down...
+2024-09-29 19:02:53.924 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 19:03:31.904 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290086588638036031 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:03:31.905 | INFO     | bot:on_message:303 - User kidaspire entered the date 01/01/2020 in the bday-for-verification channel.
+2024-09-29 19:03:31.906 | INFO     | bot:on_message:325 - User kidaspire is 4 years old, too young to be in this server...
+2024-09-29 19:05:31.651 | INFO     | bot:run_discord_bot:385 - Apple Bot is shutting down...
+2024-09-29 19:05:38.051 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 19:06:37.835 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290087368447229992 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:06:37.836 | INFO     | bot:on_message:305 - User kidaspire entered the date 01/01/2020 in the bday-for-verification channel.
+2024-09-29 19:06:37.836 | INFO     | bot:on_message:327 - User kidaspire is 4 years old, too young to be in this server...
+2024-09-29 19:07:41.990 | INFO     | bot:run_discord_bot:383 - Apple Bot is shutting down...
+2024-09-29 19:07:52.460 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 19:08:05.275 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290087735255765002 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:08:05.276 | INFO     | bot:on_message:305 - User kidaspire entered the date 01/20/4099 in the bday-for-verification channel.
+2024-09-29 19:08:05.276 | INFO     | bot:on_message:317 - User kidaspire entered an invalid birthdate.
+2024-09-29 19:08:15.099 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290087776359813130 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:08:15.100 | INFO     | bot:on_message:305 - User kidaspire entered the date 01/01/2023 in the bday-for-verification channel.
+2024-09-29 19:08:15.100 | INFO     | bot:on_message:327 - User kidaspire is 1 years old, too young to be in this server...
+2024-09-29 19:08:30.677 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290087841635897385 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:08:30.677 | INFO     | bot:on_message:305 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-29 19:08:30.678 | INFO     | bot:on_message:351 - User kidaspire is 27 years old
+2024-09-29 19:08:30.678 | INFO     | bot:add_age_role:71 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 19:08:31.036 | INFO     | bot:add_age_role:78 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-29 19:08:31.036 | DEBUG    | bot:on_message:369 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-29 19:09:29.469 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290088088390864986 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 19:09:29.469 | INFO     | bot:on_message:305 - User kidaspire entered the date 12/26/2006 in the bday-for-verification channel.
+2024-09-29 19:09:29.470 | INFO     | bot:on_message:351 - User kidaspire is 17 years old
+2024-09-29 19:09:29.470 | INFO     | bot:add_age_role:71 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 19:09:29.894 | INFO     | bot:add_age_role:80 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-29 19:09:29.894 | DEBUG    | bot:on_message:369 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:26 December
+2024-09-29 19:11:36.415 | INFO     | bot:run_discord_bot:383 - Apple Bot is shutting down...
+2024-09-29 22:31:23.002 | INFO     | bot:on_ready:214 - Apple Bot is ready!
+2024-09-29 22:31:31.889 | DEBUG    | bot:on_message:292 - Message sent: <Message id=1290138934034038805 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-29 22:31:31.890 | INFO     | bot:on_message:305 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-29 22:31:31.890 | INFO     | bot:on_message:351 - User kidaspire is 27 years old
+2024-09-29 22:31:31.890 | INFO     | bot:add_age_role:71 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-29 22:31:32.186 | INFO     | bot:add_age_role:78 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-29 22:31:32.186 | DEBUG    | bot:on_message:369 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-29 22:31:44.108 | INFO     | bot:run_discord_bot:383 - Apple Bot is shutting down...

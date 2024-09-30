@@ -1,0 +1,142 @@
+2024-09-28 16:22:47.495 | INFO     | bot:on_ready:133 - Apple Bot is ready!
+2024-09-28 16:23:02.385 | DEBUG    | bot:on_message:208 - Message sent: <Message id=1289683814251237496 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 16:23:02.386 | INFO     | bot:on_message:219 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 16:23:02.386 | INFO     | bot:on_message:220 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 16:23:02.386 | INFO     | bot:on_message:228 - User kidaspire is 27 years old
+2024-09-28 16:23:02.531 | INFO     | bot:on_message:234 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-28 16:23:02.531 | DEBUG    | bot:on_message:256 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-28 16:56:28.230 | INFO     | bot:run_discord_bot:276 - Apple Bot is shutting down...
+2024-09-28 17:04:31.379 | INFO     | bot:on_ready:146 - Apple Bot is ready!
+2024-09-28 17:04:41.087 | DEBUG    | bot:on_message:224 - Message sent: <Message id=1289694294634004490 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:04:41.087 | INFO     | bot:on_message:235 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 17:04:41.087 | INFO     | bot:on_message:236 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 17:04:41.088 | INFO     | bot:on_message:244 - User kidaspire is 27 years old
+2024-09-28 17:06:39.531 | INFO     | bot:on_ready:146 - Apple Bot is ready!
+2024-09-28 17:06:47.437 | DEBUG    | bot:on_message:224 - Message sent: <Message id=1289694824416411700 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:06:47.438 | INFO     | bot:on_message:235 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 17:06:47.438 | INFO     | bot:on_message:236 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 17:06:47.438 | INFO     | bot:on_message:244 - User kidaspire is 27 years old
+2024-09-28 17:07:38.492 | INFO     | bot:on_ready:146 - Apple Bot is ready!
+2024-09-28 17:07:45.186 | DEBUG    | bot:on_message:224 - Message sent: <Message id=1289695066809696256 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:07:45.187 | INFO     | bot:on_message:235 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 17:07:45.187 | INFO     | bot:on_message:236 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 17:07:45.187 | INFO     | bot:on_message:244 - User kidaspire is 27 years old
+2024-09-28 17:07:55.467 | INFO     | bot:on_message:252 - User kidaspire was previously assigned the "Minor" role, removing it...
+2024-09-28 17:16:33.456 | INFO     | bot:on_ready:146 - Apple Bot is ready!
+2024-09-28 17:16:40.000 | DEBUG    | bot:on_message:224 - Message sent: <Message id=1289697310028075048 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:16:40.001 | INFO     | bot:on_message:235 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 17:16:40.001 | INFO     | bot:on_message:236 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 17:16:40.001 | INFO     | bot:on_message:244 - User kidaspire is 27 years old
+2024-09-28 17:37:11.852 | INFO     | bot:on_ready:166 - Apple Bot is ready!
+2024-09-28 17:37:24.343 | DEBUG    | bot:on_message:242 - Message sent: <Message id=1289702529084424234 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:37:24.344 | INFO     | bot:on_message:253 - User kidaspire entered the date 06/06/1997 in the bday-for-verification channel.
+2024-09-28 17:37:24.344 | INFO     | bot:on_message:254 - User kidaspire's birthdate is 06/06/1997
+2024-09-28 17:37:24.344 | INFO     | bot:on_message:262 - User kidaspire is 27 years old
+2024-09-28 17:37:46.824 | INFO     | bot:add_age_role:72 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-28 17:37:52.140 | DEBUG    | bot:on_message:286 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:06 June
+2024-09-28 17:37:59.822 | INFO     | bot:run_discord_bot:306 - Apple Bot is shutting down...
+2024-09-28 17:38:09.106 | INFO     | bot:on_ready:166 - Apple Bot is ready!
+2024-09-28 17:38:26.245 | DEBUG    | bot:on_message:242 - Message sent: <Message id=1289702788850384916 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:38:26.245 | INFO     | bot:on_message:253 - User kidaspire entered the date 01/01/2016 in the bday-for-verification channel.
+2024-09-28 17:38:26.246 | INFO     | bot:on_message:254 - User kidaspire's birthdate is 01/01/2016
+2024-09-28 17:38:26.246 | INFO     | bot:on_message:262 - User kidaspire is 8 years old
+2024-09-28 17:38:26.246 | INFO     | bot:add_age_role:65 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-28 17:38:26.701 | INFO     | bot:add_age_role:74 - User kidaspire is a minor, assigning them the "Minor" role
+2024-09-28 17:38:26.701 | DEBUG    | bot:on_message:286 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:01 January
+2024-09-28 17:38:51.371 | DEBUG    | bot:on_message:242 - Message sent: <Message id=1289702894253244521 channel=<TextChannel id=1167611556989763714 name='bday-for-verification' position=1 nsfw=False news=False category_id=878771899612680244> type=<MessageType.default: 0> author=<Member id=196401601647345664 name='kidaspire' global_name='Aspire' bot=False nick='Steven Tra' guild=<Guild id=878771899612680243 name="Steven Tra's Server" shard_id=0 chunked=True member_count=7>> flags=<MessageFlags value=0>>
+2024-09-28 17:38:51.371 | INFO     | bot:on_message:253 - User kidaspire entered the date 06/07/1997 in the bday-for-verification channel.
+2024-09-28 17:38:51.372 | INFO     | bot:on_message:254 - User kidaspire's birthdate is 06/07/1997
+2024-09-28 17:38:51.372 | INFO     | bot:on_message:262 - User kidaspire is 27 years old
+2024-09-28 17:38:51.372 | INFO     | bot:add_age_role:65 - User kidaspire was previously assigned the wrong age role, removing it...
+2024-09-28 17:38:51.683 | INFO     | bot:add_age_role:72 - User kidaspire is an adult, assigning them the "Adult" role
+2024-09-28 17:38:51.683 | DEBUG    | bot:on_message:286 - The command to add kidaspire's birthday to the Birthday Bot is /override set-birthday target:@kidaspire date:07 June
+2024-09-28 17:39:50.262 | INFO     | bot:run_discord_bot:306 - Apple Bot is shutting down...
+2024-09-28 17:44:01.332 | INFO     | bot:on_ready:171 - Apple Bot is ready!
+2024-09-28 17:44:48.402 | DEBUG    | bot:on_scheduled_event_create:183 - User kidaspire created the event "Overwatch 6v6s!!!" at 2024-09-28 22:00:00.710000+00:00!
+2024-09-28 17:44:48.402 | DEBUG    | bot:on_scheduled_event_create:184 - Description of event: @Overwatch Come join us for 6v6s!!!
+2024-09-28 17:44:48.402 | DEBUG    | bot:on_scheduled_event_create:188 - Role(s) mentioned for event: ['@Overwatch']
+2024-09-28 17:44:48.402 | DEBUG    | bot:on_scheduled_event_create:195 - Role Overwatch id is 1174914173319266404
+2024-09-28 17:44:48.402 | DEBUG    | bot:on_scheduled_event_create:210 - Message sent to updates channel: @Overwatch Come join us for 6v6s!!!
+2024-09-28 17:44:48.646 | DEBUG    | bot:create_reminder:136 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 30 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289704390441046068
+2024-09-28 17:44:48.646 | DEBUG    | bot:create_reminder:141 - Scheduling reminder message for "Overwatch 6v6s!!!" 30 before the event...
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:136 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 15 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289704390441046068
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:141 - Scheduling reminder message for "Overwatch 6v6s!!!" 15 before the event...
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:136 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 10 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289704390441046068
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:141 - Scheduling reminder message for "Overwatch 6v6s!!!" 10 before the event...
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:136 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 5 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289704390441046068
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:141 - Scheduling reminder message for "Overwatch 6v6s!!!" 5 before the event...
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:136 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 1 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289704390441046068
+2024-09-28 17:44:48.647 | DEBUG    | bot:create_reminder:141 - Scheduling reminder message for "Overwatch 6v6s!!!" 1 before the event...
+2024-09-28 17:49:19.013 | INFO     | bot:run_discord_bot:311 - Apple Bot is shutting down...
+2024-09-28 17:49:43.269 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 17:53:10.290 | INFO     | bot:run_discord_bot:312 - Apple Bot is shutting down...
+2024-09-28 18:14:36.961 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:22:26.979 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:23:05.292 | INFO     | bot:run_discord_bot:323 - Apple Bot is shutting down...
+2024-09-28 18:23:42.418 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:25:41.504 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:25:52.771 | INFO     | bot:run_discord_bot:323 - Apple Bot is shutting down...
+2024-09-28 18:26:00.956 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:29:08.340 | INFO     | bot:run_discord_bot:323 - Apple Bot is shutting down...
+2024-09-28 18:29:11.232 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:29:56.483 | INFO     | bot:run_discord_bot:326 - Apple Bot is shutting down...
+2024-09-28 18:30:00.507 | INFO     | bot:on_ready:172 - Apple Bot is ready!
+2024-09-28 18:35:32.703 | INFO     | bot:on_ready:173 - Apple Bot is ready!
+2024-09-28 18:36:02.217 | DEBUG    | bot:on_ready:186 - It is currently 2024-09-28 18:35:48.984285+00:00. The event titled Overwatch 6v6s!!! is starting in 204.19542858333335.
+2024-09-28 18:36:30.233 | INFO     | bot:run_discord_bot:328 - Apple Bot is shutting down...
+2024-09-28 18:36:34.765 | INFO     | bot:on_ready:173 - Apple Bot is ready!
+2024-09-28 18:37:54.851 | INFO     | bot:on_ready:173 - Apple Bot is ready!
+2024-09-28 18:38:42.474 | DEBUG    | bot:on_ready:186 - It is currently 2024-09-28 18:38:08.992735-05:00. The event titled Overwatch 6v6s!!! is starting in -98.13804558333332.
+2024-09-28 18:41:47.345 | INFO     | bot:run_discord_bot:328 - Apple Bot is shutting down...
+2024-09-28 18:41:53.347 | INFO     | bot:on_ready:173 - Apple Bot is ready!
+2024-09-28 18:42:03.515 | DEBUG    | bot:on_ready:185 - It is currently 2024-09-28 22:42:03.515692+00:00. The event titled Overwatch 6v6s!!! is starting in -42.04676153333333.
+2024-09-28 18:42:07.956 | INFO     | bot:run_discord_bot:327 - Apple Bot is shutting down...
+2024-09-28 18:50:16.663 | INFO     | bot:on_ready:175 - Apple Bot is ready!
+2024-09-28 19:24:19.120 | INFO     | bot:on_ready:211 - Apple Bot is ready!
+2024-09-28 19:24:29.288 | DEBUG    | bot:on_ready:225 - It is currently 2024-09-28 23:24:29.288685+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 5.526671916666667 minutes.
+2024-09-28 19:24:29.288 | DEBUG    | bot:on_ready:230 - Role(s) mentioned for event: ['@Overwatch']
+2024-09-28 19:24:29.289 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:24:29.289 | DEBUG    | bot:schedule_reminders:166 - It is currently 2024-09-28 23:24:29.289117+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 5.526664716666667 minutes.
+2024-09-28 19:24:29.290 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 5 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289729396361658418
+2024-09-28 19:24:29.290 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 1 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289729396361658418
+2024-09-28 19:25:29.616 | INFO     | bot:run_discord_bot:362 - Apple Bot is shutting down...
+2024-09-28 19:25:34.389 | INFO     | bot:on_ready:211 - Apple Bot is ready!
+2024-09-28 19:25:40.424 | INFO     | bot:run_discord_bot:362 - Apple Bot is shutting down...
+2024-09-28 19:26:31.305 | INFO     | bot:on_ready:211 - Apple Bot is ready!
+2024-09-28 19:26:44.424 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:27:02.010 | DEBUG    | bot:schedule_reminders:166 - It is currently 2024-09-28 23:26:54.996607+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 3.09820655 minutes.
+2024-09-28 19:27:19.395 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 1 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289729396361658418
+2024-09-28 19:27:37.334 | INFO     | bot:run_discord_bot:351 - Apple Bot is shutting down...
+2024-09-28 19:32:17.787 | INFO     | bot:on_ready:211 - Apple Bot is ready!
+2024-09-28 19:32:30.835 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:32:35.324 | DEBUG    | bot:schedule_reminders:166 - It is currently 2024-09-28 23:32:35.324984+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 12.422666933333334 minutes.
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 10.0 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289731312390901790
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:157 - Scheduling reminder message for "Overwatch 6v6s!!!" 10.0 before the event...
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 5.0 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289731312390901790
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:157 - Scheduling reminder message for "Overwatch 6v6s!!!" 5.0 before the event...
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 1.0 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289731312390901790
+2024-09-28 19:32:35.325 | DEBUG    | bot:create_reminder:157 - Scheduling reminder message for "Overwatch 6v6s!!!" 1.0 before the event...
+2024-09-28 19:36:16.569 | INFO     | bot:run_discord_bot:351 - Apple Bot is shutting down...
+2024-09-28 19:36:24.587 | INFO     | bot:on_ready:211 - Apple Bot is ready!
+2024-09-28 19:36:34.739 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:36:34.740 | DEBUG    | bot:schedule_reminders:166 - It is currently 2024-09-28 23:36:34.739951+00:00 UTC. The event titled "Overwatch 6v6s!!!" is starting in 8.432417483333333 minutes.
+2024-09-28 19:36:34.740 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 5 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289731312390901790
+2024-09-28 19:36:34.740 | DEBUG    | bot:create_reminder:157 - Scheduling reminder message for "Overwatch 6v6s!!!" 5.0 before the event...
+2024-09-28 19:36:34.740 | DEBUG    | bot:create_reminder:152 - <@&1174914173319266404> **"Overwatch 6v6s!!!"** is starting in 1 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289731312390901790
+2024-09-28 19:36:34.740 | DEBUG    | bot:create_reminder:157 - Scheduling reminder message for "Overwatch 6v6s!!!" 1.0 before the event...
+2024-09-28 19:44:40.399 | INFO     | bot:run_discord_bot:351 - Apple Bot is shutting down...
+2024-09-28 19:49:21.271 | INFO     | bot:on_ready:217 - Apple Bot is ready!
+2024-09-28 19:49:31.408 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:50:28.434 | DEBUG    | bot:on_scheduled_event_create:244 - User kidaspire created the event "VALORANT 5v5s!!!" at 2024-09-29 00:00:00.881000+00:00!
+2024-09-28 19:50:28.434 | DEBUG    | bot:on_scheduled_event_create:245 - Description of event: @Overwatch come play valo!
+2024-09-28 19:50:28.434 | DEBUG    | bot:on_scheduled_event_create:249 - Role(s) mentioned for event: ['@Overwatch']
+2024-09-28 19:50:28.434 | DEBUG    | bot:get_roles_to_ids:129 - Role Overwatch id is 1174914173319266404
+2024-09-28 19:50:28.434 | DEBUG    | bot:on_scheduled_event_create:265 - Message sent to updates channel: @Overwatch come play valo!
+2024-09-28 19:50:28.582 | DEBUG    | bot:schedule_reminders:172 - It is currently 2024-09-28 23:50:28.582345+00:00 UTC. The event titled "VALORANT 5v5s!!!" is starting in 9.538310916666667 minutes.
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VALORANT 5v5s!!!"** is starting in 5 minutes! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289736015803711543
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VALORANT 5v5s!!!" 5.0 before the event...
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VALORANT 5v5s!!!"** is starting in 1 minute! Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289736015803711543
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VALORANT 5v5s!!!" 1.0 before the event...
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:158 - <@&1174914173319266404> **"VALORANT 5v5s!!!"** is starting **RIGHT NOW!** Please come join us in <#878771900061462558> if you would like to participate! https://discord.com/events/878771899612680243/1289736015803711543
+2024-09-28 19:50:28.582 | DEBUG    | bot:create_reminder:163 - Scheduling reminder message for "VALORANT 5v5s!!!" 0.0 before the event...
+2024-09-28 20:00:26.074 | INFO     | bot:run_discord_bot:357 - Apple Bot is shutting down...
