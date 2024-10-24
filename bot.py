@@ -2,6 +2,7 @@
 # Author: Steven Tra
 # Date: 2024-09-24
 
+import random
 from dotenv import load_dotenv
 from loguru import logger
 from datetime import date, datetime, timedelta
@@ -15,6 +16,7 @@ import requests
 import asyncio
 import re
 import pytz
+from gamble import Economy, setup_economy_commands
 
 from discord.ext import commands
 from discord.utils import get
@@ -27,6 +29,7 @@ headers = {"authorization": "Bot " + TOKEN}
 TIMEZONE = os.environ["TIMEZONE"]
 # The ID of the primary admin of the server; this member will input birthdays into the Birthday Bot
 server_admin_ID = os.environ["DISCORD_SERVER_ADMIN_ID"]
+apple_server = os.environ["APPLE_SERVER"]
 bday_for_verification_channel_ID = int(os.environ["BDAY_FOR_VERIFICATION_CHANNEL_ID"])
 commands_channel_ID = int(os.environ["COMMANDS_CHANNEL_ID"])
 updates_channel_ID = int(os.environ["UPDATES_CHANNEL_ID"])
@@ -195,7 +198,7 @@ def run_discord_bot():
     intents = discord.Intents.all()
     intents.message_content = True
     bot = commands.Bot(command_prefix='!', intents=intents)
-
+    
     @bot.command(pass_context=True)
     async def addrole(ctx, user: discord.Member):
         """Adds a role to the specified user.
@@ -211,7 +214,13 @@ def run_discord_bot():
     async def on_ready():
         """ Logs to the console that Apple Bot is ready to use.
         """
+
         logger.info("Apple Bot is ready!")
+        economy = Economy("./data/gambleData.json")
+        await setup_economy_commands(bot, economy, apple_server)
+        await bot.tree.sync(guild=discord.Object(id="878771899612680243"))
+
+        # Why? I feel as that this should grab like `@bot.command` ?
 
         # If the bot was stopped previously, fetch the scheduled events for the server and create reminder messages that
         # will be sent at the specified reminder times
