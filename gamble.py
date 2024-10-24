@@ -178,85 +178,85 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
         
         await interaction.response.send_message(embed=embed)
 
-        @bot.tree.command(
-            name="steal",
-            description="Attempt to steal coins from another user",
-            guild=discord.Object(id=guild_id)
-        )
-        async def steal(interaction: discord.Interaction, target: discord.Member):
-            user_id = interaction.user.id
-            target_id = target.id
-            command_name = "steal"
-            cooldown_duration = timedelta(minutes=10)
+    @bot.tree.command(
+        name="steal",
+        description="Attempt to steal coins from another user",
+        guild=discord.Object(id=guild_id)
+    )
+    async def steal(interaction: discord.Interaction, target: discord.Member):
+        user_id = interaction.user.id
+        target_id = target.id
+        command_name = "steal"
+        cooldown_duration = timedelta(minutes=10)
 
-            if user_id == target_id:
-                await interaction.response.send_message("You cannot steal from yourself!", ephemeral=True)
-                return
+        if user_id == target_id:
+            await interaction.response.send_message("You cannot steal from yourself!", ephemeral=True)
+            return
 
-            if economy.is_on_cooldown(user_id, command_name):
-                remaining_time = economy.get_cooldown_time(user_id, command_name)
-                hours, remainder = divmod(remaining_time.seconds, 3600)
-                minutes, seconds = divmod(remainder, 60)
-                await interaction.response.send_message(
-                    f"⏳ You are on cooldown! Please wait {remaining_time.days} days, {hours} hours, {minutes} minutes.",
-                    ephemeral=True
-                )
-                return
-
-            current_time = datetime.now().hour
-            target_balance = economy.get_balance(target_id)
-            steal_amount = random.randint(50, 300)
-
-            if target_balance < steal_amount:
-                await interaction.response.send_message(
-                    f"{target.display_name} doesn't have enough coins to steal from! They only have {target_balance} coins.",
-                    ephemeral=True
-                )
-                return
-
-            if 6 <= current_time < 18:  # Daytime (6 AM - 6 PM)
-                success_chance = 30  # 30% success rate during the day
-            else:  # Nighttime (6 PM - 6 AM)
-                success_chance = 60  # 60% success rate during the night
-
-            roll = random.randint(1, 100)
-            if roll <= success_chance:  # Successful steal
-                economy.update_balance(user_id, steal_amount)
-                economy.update_balance(target_id, -steal_amount)
-                result = f"💸 You successfully stole {steal_amount} coins from {target.display_name}!"
-                color = discord.Color.green()
-            else:
-                fine_amount = random.randint(20, 100) 
-
-                caught_messages = [
-                    f"You tripped on {target.display_name}'s wife's bra!",
-                    "You stepped on a squeaky toy and alerted the guards!",
-                    f"You got stuck in {target.display_name}'s laundry basket.",
-                    "You sneezed while hiding, and everyone heard you!",
-                    "A cat knocked over a vase and blamed you!",
-                    f"While stealing, you got a call from {interaction.user.display_name}'s mom!",
-                    "You slipped on a banana peel and fell into the trap!",
-                    "The security camera spotted you breakdancing in the vault!",
-                    f"{target.display_name}'s guard dog caught you!",
-                    "You tried to steal coins, but ended up stealing a cursed artifact!"
-                ]
-
-                caught_message = random.choice(caught_messages)
-
-                result = f"🚓 {caught_message} You were caught and fined {fine_amount} coins!"
-                economy.update_balance(user_id, -fine_amount)
-                color = discord.Color.red()
-
-            embed = discord.Embed(
-                title="💰 Stealing Attempt",
-                description=result,
-                color=color
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            hours, remainder = divmod(remaining_time.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {remaining_time.days} days, {hours} hours, {minutes} minutes.",
+                ephemeral=True
             )
-            embed.set_footer(text=f"Roll: {roll}/100 (Success chance: {success_chance}%)")
+            return
 
-            # Set cooldown after steal attempt
+        current_time = datetime.now().hour
+        target_balance = economy.get_balance(target_id)
+        steal_amount = random.randint(50, 300)
 
-            await interaction.response.send_message(embed=embed)
+        if target_balance < steal_amount:
+            await interaction.response.send_message(
+                f"{target.display_name} doesn't have enough coins to steal from! They only have {target_balance} coins.",
+                ephemeral=True
+            )
+            return
+
+        if 6 <= current_time < 18:  # Daytime (6 AM - 6 PM)
+            success_chance = 30  # 30% success rate during the day
+        else:  # Nighttime (6 PM - 6 AM)
+            success_chance = 60  # 60% success rate during the night
+
+        roll = random.randint(1, 100)
+        if roll <= success_chance:  # Successful steal
+            economy.update_balance(user_id, steal_amount)
+            economy.update_balance(target_id, -steal_amount)
+            result = f"💸 You successfully stole {steal_amount} coins from {target.display_name}!"
+            color = discord.Color.green()
+        else:
+            fine_amount = random.randint(20, 100) 
+
+            caught_messages = [
+                f"You tripped on {target.display_name}'s wife's bra!",
+                "You stepped on a squeaky toy and alerted the guards!",
+                f"You got stuck in {target.display_name}'s laundry basket.",
+                "You sneezed while hiding, and everyone heard you!",
+                "A cat knocked over a vase and blamed you!",
+                f"While stealing, you got a call from {interaction.user.display_name}'s mom!",
+                "You slipped on a banana peel and fell into the trap!",
+                "The security camera spotted you breakdancing in the vault!",
+                f"{target.display_name}'s guard dog caught you!",
+                "You tried to steal coins, but ended up stealing a cursed artifact!"
+            ]
+
+            caught_message = random.choice(caught_messages)
+
+            result = f"🚓 {caught_message} You were caught and fined {fine_amount} coins!"
+            economy.update_balance(user_id, -fine_amount)
+            color = discord.Color.red()
+
+        embed = discord.Embed(
+            title="💰 Stealing Attempt",
+            description=result,
+            color=color
+        )
+        embed.set_footer(text=f"Roll: {roll}/100 (Success chance: {success_chance}%)")
+
+        # Set cooldown after steal attempt
+
+        await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(
         name="daily",
