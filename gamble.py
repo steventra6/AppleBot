@@ -236,6 +236,7 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
                 "A cat knocked over a vase and blamed you!",
                 f"While stealing, you got a call from {interaction.user.display_name}'s mom!",
                 "You slipped on a banana peel and fell into the trap!",
+                "You slipped on an ice cube and got covered in booboos! 🧊😭😭",
                 "The security camera spotted you breakdancing in the vault!",
                 f"{target.display_name}'s guard dog caught you!",
                 "You tried to steal coins, but ended up stealing a cursed artifact!"
