@@ -10,8 +10,40 @@ rare_items = [
     {"name": "Gold Ore", "value": 30},
     {"name": "Silver Ore", "value": 20},
     {"name": "Emerald", "value": 40},
-    {"name": "Stevens Lucky Number", "value": 10}
+    {"name": "Stevens Lucky Number", "value": 500}
 ]
+
+item_data = []
+
+class Item:
+    def __init__(self, name: str, action: str, cash: int, effect: str):
+        self.name = name
+        self.action = action
+        self.cash = cash
+        self.effect = effect
+
+    def perform_action(self, economy, user_id):
+        if self.action == 'sell':
+            economy.update_balance(user_id, self.cash)
+            economy.remove_from_inventory(user_id, self.name)
+            return f"You sold **{self.name}** for **${self.cash}**!"
+        else:
+            return f"The action '{self.action}' is not supported for **{self.name}**."
+
+def create_item(name: str, action: str, cash: int, effect: str):
+    item = Item(name, action, cash, effect)
+    item_data.append(item)
+
+create_item("Stevens Lucky Number", "sell", 500, "This serves no purpose.. Besides being lucky (or does it ?)")
+create_item("Emerald", "sell", 400, "Can be sold for cash")
+create_item("Gold Ore", "sell", 300, "Can be sold for cash")
+create_item("Silver Ore", "sell", 200, "Can be sold for cash")
+create_item("Fishing Rod", "increase_success_rate", 0, "Increases fishing success rate.")
+create_item("Treasure Map", "find_treasure", 0, "Leads to hidden treasures.")
+create_item("Old Boot", "sell", 50, "Can be used as a joke item.")
+create_item("Gold Coin", "sell", 100, "Can be sold for extra cash.")
+create_item("Lucky Charm", "increase_success_rate", 0, "Increases chance of rare catches.")
+create_item("Diamond", "sell", 500, "Can be sold for cash")
 
 fish_data = [
     {
@@ -46,32 +78,7 @@ fish_data = [
     }
 ]
 
-item_data = []
 
-class Item:
-    def __init__(self, name: str, action: str, cash: int, effect: str):
-        self.name = name
-        self.action = action
-        self.cash = cash
-        self.effect = effect
-
-    def perform_action(self, economy, user_id):
-        if self.action == 'sell':
-            economy.update_balance(user_id, self.cash)
-            economy.remove_from_inventory(user_id, self.name)
-            return f"You sold **{self.name}** for **${self.cash}**!"
-        else:
-            return f"The action '{self.action}' is not supported for **{self.name}**."
-
-def create_item(name: str, action: str, cash: int, effect: str):
-    item = Item(name, action, cash, effect)
-    item_data.append(item)
-
-create_item("Fishing Rod", "increase_success_rate", 0, "Increases fishing success rate.")
-create_item("Treasure Map", "find_treasure", 0, "Leads to hidden treasures.")
-create_item("Old Boot", "sell", 5, "Can be used as a joke item.")
-create_item("Gold Coin", "sell", 10, "Can be sold for extra cash.")
-create_item("Lucky Charm", "increase_success_rate", 0, "Increases chance of rare catches.")
 
 async def setup_fishing_commands(bot, economy: Economy, guild_id: str):
 
@@ -138,12 +145,16 @@ async def setup_fishing_commands(bot, economy: Economy, guild_id: str):
         user_id = interaction.user.id
         inventory = economy.inventories.get(user_id, [])
 
-        if item_name not in inventory:
+        item_name_lower = item_name.lower()
+
+        inventory_lower = [item.lower() for item in inventory]
+
+        if item_name_lower not in inventory_lower:
             await interaction.response.send_message(f"You don't have a **{item_name}** in your inventory.", ephemeral=True)
             return
 
         for item in item_data:
-            if item.name == item_name and item.action == 'sell':
+            if item.name.lower() == item_name_lower and item.action == 'sell':
                 response = item.perform_action(economy, user_id)
                 await interaction.response.send_message(response)
                 return
