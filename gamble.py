@@ -5,6 +5,7 @@ from typing import Dict, Any
 from datetime import datetime, timedelta
 import discord
 from discord.ext.commands import has_permissions, MissingPermissions
+from loguru import logger
 
 import json
 import os
@@ -154,6 +155,23 @@ class Economy:
         cooldown_str = self.cooldowns[user_id][command]["cooldown"]
         cooldown = datetime.fromisoformat(cooldown_str)
         return datetime.now() < cooldown
+    
+    def get_cooldown_time(self, user_id: int, command: str) -> timedelta:
+        """
+        Retrieve the remaining cooldown time for a specific command for a user.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command to get the remaining cooldown time for.
+        
+        Returns:
+            timedelta: The remaining cooldown time, or zero if no cooldown is active.
+        """
+        if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
+            return timedelta(0)
+        cooldown_str = self.cooldowns[user_id][command]["cooldown"]
+        cooldown = datetime.fromisoformat(cooldown_str)
+        return max(timedelta(0), cooldown - datetime.now())
 
 
 async def setup_economy_commands(bot, economy: Economy, guild_id: str):
@@ -188,7 +206,7 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
     async def setBalance(interaction: discord.Interaction, amount: int, user: discord.Member = None):
         if interaction.user.name not in ["zrodevkaan", "kidaspire"]:
             await interaction.response.send_message("You aren't the bot owners. Ask the bot owners for usage.")
-            return  
+            return
 
         target_user = user if user else interaction.user
         
@@ -282,6 +300,14 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
         target_id = target.id
         command_name = "steal"
         cooldown_duration = timedelta(minutes=10)
+
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            strignCause = f"{remaining_time.total_seconds()}"
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {strignCause.split('.')[0]}.", ephemeral=True
+            )
+            return
 
         current_time = datetime.now().hour
         target_balance = economy.get_balance(target_id)

@@ -1,4 +1,5 @@
 import asyncio
+from datetime import timedelta
 import discord
 from discord import app_commands
 import random
@@ -357,6 +358,15 @@ async def setup_job_system(bot, economy: gamble.Economy, guild_id: str):
         job_name = job.value
         min_reward, max_reward = jobs[job_name]
         performance = random.randint(1, 100)
+        cooldown_duration = timedelta(seconds=10)
+
+        if economy.is_on_cooldown(user_id, 'work'):
+            remaining_time = economy.get_cooldown_time(user_id, 'work')
+            strignCause = f"{remaining_time.total_seconds()}"
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {strignCause.split('.')[0]}.", ephemeral=True
+            )
+            return
 
         task_result = await complete_job_task(bot, interaction, job_name)
         
@@ -419,3 +429,5 @@ async def setup_job_system(bot, economy: gamble.Economy, guild_id: str):
             
         if status != "timeout":
             await interaction.followup.send(embed=embed)
+
+        economy.set_cooldown(interaction.user.id, 'work', cooldown_duration)

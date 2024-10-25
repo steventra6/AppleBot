@@ -1,15 +1,18 @@
 import asyncio
+from datetime import timedelta
+import math
 import random
+from typing import Dict, List
 import discord
-from discord import app_commands
+from discord import ButtonStyle, app_commands
 
 from gamble import Economy
 
 rare_items = [
-    {"name": "Diamond", "value": 50},
-    {"name": "Gold Ore", "value": 30},
-    {"name": "Silver Ore", "value": 20},
-    {"name": "Emerald", "value": 40},
+    {"name": "Diamond", "value": 300},
+    {"name": "Gold Ore", "value": 75},
+    {"name": "Silver Ore", "value": 145},
+    {"name": "Emerald", "value": 200},
     {"name": "Stevens Lucky Number", "value": 500}
 ]
 
@@ -35,15 +38,15 @@ def create_item(name: str, action: str, cash: int, effect: str):
     item_data.append(item)
 
 create_item("Stevens Lucky Number", "sell", 500, "This serves no purpose.. Besides being lucky (or does it ?)")
-create_item("Emerald", "sell", 400, "Can be sold for cash")
-create_item("Gold Ore", "sell", 300, "Can be sold for cash")
-create_item("Silver Ore", "sell", 200, "Can be sold for cash")
+create_item("Emerald", "sell", 200, "Can be sold for cash")
+create_item("Gold Ore", "sell", 75, "Can be sold for cash")
+create_item("Silver Ore", "sell", 145, "Can be sold for cash")
 create_item("Fishing Rod", "increase_success_rate", 0, "Increases fishing success rate.")
 create_item("Treasure Map", "find_treasure", 0, "Leads to hidden treasures.")
 create_item("Old Boot", "sell", 50, "Can be used as a joke item.")
 create_item("Gold Coin", "sell", 100, "Can be sold for extra cash.")
 create_item("Lucky Charm", "increase_success_rate", 0, "Increases chance of rare catches.")
-create_item("Diamond", "sell", 500, "Can be sold for cash")
+create_item("Diamond", "sell", 300, "Can be sold for cash")
 
 fish_data = [
     {
@@ -54,7 +57,7 @@ fish_data = [
             "The fish got away before you could reel it in!",
             "You caught a boot instead of a fish!"
         ],
-        "reward": (100, 200)
+        "reward": (10, 100)
     },
     {
         "fish": "Trout",
@@ -64,7 +67,7 @@ fish_data = [
             "You ended up with seaweed instead of a fish!",
             "You scared the trout away with your noisy fishing!"
         ],
-        "reward": (80, 160)
+        "reward": (40, 100)
     },
     {
         "fish": "Catfish",
@@ -74,33 +77,87 @@ fish_data = [
             "You dropped your bait and the catfish laughed!",
             "You tried to catch a catfish but only caught a cold!"
         ],
-        "reward": (120, 240)
+        "reward": (65, 100)
     }
 ]
 
 
+class InventoryPaginationView(discord.ui.View):
+    def __init__(self, items: List[tuple], user_name: str, items_per_page: int = 5):
+        super().__init__(timeout=60)
+        self.items = items
+        self.current_page = 0
+        self.items_per_page = items_per_page
+        self.user_name = user_name
+        self.total_pages = math.ceil(len(items) / items_per_page)
+        
+        if self.total_pages <= 1:
+            self.previous_button.disabled = True
+            self.next_button.disabled = True
+
+    def get_embed(self) -> discord.Embed:
+        start_idx = self.current_page * self.items_per_page
+        end_idx = start_idx + self.items_per_page
+        current_items = self.items[start_idx:end_idx]
+
+        embed = discord.Embed(
+            title=f"{self.user_name}'s Inventory",
+            description=f"Page {self.current_page + 1} of {self.total_pages}",
+            color=discord.Color.blue()
+        )
+
+        if current_items:
+            for item_name, quantity, effect in current_items:
+                embed.add_field(
+                    name=f"{item_name} (x{quantity})",
+                    value=f"📝 {effect}",
+                    inline=False
+                )
+        else:
+            embed.add_field(
+                name="Empty",
+                value="You have no items in your inventory.",
+                inline=False
+            )
+
+        return embed
+
+    @discord.ui.button(label="Previous", style=ButtonStyle.primary, emoji="⬅️")
+    async def previous_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if self.current_page > 0:
+            self.current_page -= 1
+            await interaction.response.edit_message(embed=self.get_embed(), view=self)
+        else:
+            await interaction.response.defer()
+
+    @discord.ui.button(label="Next", style=ButtonStyle.primary, emoji="➡️")
+    async def next_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if self.current_page < self.total_pages - 1:
+            self.current_page += 1
+            await interaction.response.edit_message(embed=self.get_embed(), view=self)
+        else:
+            await interaction.response.defer()
 
 async def setup_fishing_commands(bot, economy: Economy, guild_id: str):
 
     @bot.tree.command(name="items", description="View your inventory items.", guild=discord.Object(id=guild_id))
     async def items(interaction: discord.Interaction):
         user_id = interaction.user.id
-        inventory: Item = economy.inventories.get(user_id, [])
-
-        embed = discord.Embed(
-            title=f"{interaction.user.name}'s Inventory",
-            color=discord.Color.blue()
-        )
-
-        if inventory:
-            for item_name in inventory:
-                item_object = next((item for item in item_data if item.name == item_name), None)
-                if item_object:
-                    embed.add_field(name=item_object.name, value=item_object.effect, inline=True)
-        else:
-            embed.add_field(name="Empty", value="You have no items in your inventory.", inline=False)
-
-        await interaction.response.send_message(embed=embed)
+        inventory: Dict[str, int] = {}
+        
+        for item_name in economy.inventories.get(user_id, []):
+            inventory[item_name] = inventory.get(item_name, 0) + 1
+        
+        inventory_items = []
+        for item_name, quantity in inventory.items():
+            item_object = next((item for item in item_data if item.name == item_name), None)
+            if item_object:
+                inventory_items.append((item_object.name, quantity, item_object.effect))
+        
+        inventory_items.sort(key=lambda x: x[0])
+        
+        view = InventoryPaginationView(inventory_items, interaction.user.name)
+        await interaction.response.send_message(embed=view.get_embed(), view=view)
 
     @bot.tree.command(
         name="fish",
@@ -109,7 +166,18 @@ async def setup_fishing_commands(bot, economy: Economy, guild_id: str):
     )
     async def fish(interaction: discord.Interaction):
         fish = random.choice(fish_data)
-        await interaction.response.send_message(f"Cast your line! Try to catch a **{fish['fish']}**!")
+        user_id = interaction.user.id
+        cooldown_duration = timedelta(seconds=10)
+
+        if economy.is_on_cooldown(user_id, 'fish'):
+            remaining_time = economy.get_cooldown_time(user_id, 'fish')
+            strignCause = f"{remaining_time.total_seconds()}"
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {strignCause.split('.')[0]}.", ephemeral=True
+            )
+            return
+
+        await interaction.response.send_message(f"Cast your line! Try to catch a **{fish['fish']}**! (say y, yes or catch)")
 
         def check(m):
             return m.channel == interaction.channel and m.author.id == interaction.user.id
@@ -124,17 +192,37 @@ async def setup_fishing_commands(bot, economy: Economy, guild_id: str):
             reward = random.randint(*fish["reward"])
             economy.update_balance(interaction.user.id, reward)
 
-            item = random.choice(item_data)
-            economy.add_to_inventory(interaction.user.id, item.name)
+            rare_item_chance = random.random()
+            found_item = None
 
-            await interaction.followup.send(
-                f"{fish['success_message']} You earned **${reward}**! You also found a **{item.name}**! ({item.effect})"
-            )
-            return "caught", (reward, item.name)
+            if rare_item_chance < 0.10:
+                found_item = random.choice(rare_items)
+                economy.add_to_inventory(interaction.user.id, found_item["name"])
+
+            # too commoon # 
+            # common_item = random.choice(item_data)
+            # economy.add_to_inventory(interaction.user.id, common_item.name)
+
+            response_message = f"{fish['success_message']} You earned **${reward}**!"
+            
+            if found_item:
+                response_message += f" You also found a **{found_item['name']}**! ({found_item['value']} value)"
+            
+            # response_message += f" You also found a **{common_item.name}**! ({common_item.effect})"
+            
+            economy.set_cooldown(interaction.user.id, "fish", cooldown_duration)
+
+            await interaction.followup.send(response_message)
+            return "caught", (reward)
+
         else:
+            cooldown_duration = timedelta(seconds=10)
+            economy.set_cooldown(interaction.user.id, "fish", cooldown_duration)
+
             fail_message = random.choice(fish["failure_messages"])
             await interaction.followup.send(f"{fail_message} Better luck next time!")
             return "failed", None
+            
 
     @bot.tree.command(
         name="sell",

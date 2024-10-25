@@ -5,7 +5,7 @@
 import random
 from dotenv import load_dotenv
 from loguru import logger
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 import os
 import json
@@ -40,25 +40,85 @@ minor_role_ID = int(os.environ["MINOR_ROLE_ID"])
 adult_role_ID = int(os.environ["ADULT_ROLE_ID"])
 # Some servers may require a minimum age to be admitted; you may set that as an environment variable
 minimum_age = int(os.environ["MINIMUM_AGE"])
-# The list which defines when and how many times users should be reminded about the event before the event. Each entry
-# in the list represents how many minutes before the event the user should be reminded about the current event that was
-# scheduled.
+# The list which defines when and how many times users should be reminded about the event before the event
 reminder_times = np.array(json.loads(os.environ["REMINDER_TIMES"]), dtype="float")
+# Maximum allowed age for birthday verification
+MAX_AGE = 100
 
 # Instantiate the logger; we'll be using Loguru for our logging purposes!
 logger.remove(0)
 logger.add(sys.stdout, level="TRACE")
 logger.add("logs/AppleBot.log", level="TRACE", rotation="0:00", retention="14 days")
 
-def calculate_age(born : datetime):
+async def create_server_event(
+    guild: discord.Guild,
+    name: str,
+    description: str,
+    start_time: datetime,
+    end_time: datetime,
+    channel_id: int = None,
+    location: str = None
+) -> discord.ScheduledEvent:
+    """Creates a scheduled event in the Discord server.
+
+    Args:
+        guild: The Discord guild to create the event in
+        name: Name of the event
+        description: Description of the event
+        start_time: When the event starts
+        end_time: When the event ends
+        channel_id: Optional voice channel ID for the event
+        location: Optional external location for the event. Required if channel_id is None.
+
+    Returns:
+        The created ScheduledEvent
+
+    Raises:
+        ValueError: If neither channel_id nor location is provided, or if both are provided
+    """
+    if channel_id is None and location is None:
+        raise ValueError("Either channel_id or location must be provided")
+    
+    if channel_id is not None and location is not None:
+        raise ValueError("Cannot provide both channel_id and location")
+    
+    if channel_id:
+        channel = guild.get_channel(channel_id)
+        if not isinstance(channel, discord.VoiceChannel):
+            raise ValueError("Channel must be a voice channel")
+            
+        return await guild.create_scheduled_event(
+            name=name,
+            description=description,
+            start_time=start_time,
+            end_time=end_time,
+            entity_type=discord.EntityType.voice,
+            channel=channel
+        )
+    else:
+        return await guild.create_scheduled_event(
+            name=name,
+            description=description,
+            start_time=start_time,
+            end_time=end_time,
+            entity_type=discord.EntityType.external,
+            location=location
+        )
+
+def calculate_age(born: datetime):
     """Calculate the age of the user.
+    Returns None if the age is invalid (negative or over MAX_AGE)
 
     :param born: the birthdate of the user
     :type born: datetime
-    :return: the age of the user (in years)
+    :return: the age of the user (in years) or None if invalid
     """
     today = date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    
+    if age < 0 or age > MAX_AGE:
+        return None
+    return age
 
 async def add_age_role(is_adult, message):
     """ Adds the appropriate age role to the user who enters their birthday into the bday-for-verification channel.
@@ -123,7 +183,7 @@ def get_roles_to_ids(event):
         roles_to_ids[name[1:]] = str(role_id)
     return roles_to_ids
 
-async def create_reminder(event : discord.ScheduledEvent, minutes_before_event : int, role_ids : list, event_channel_id : int, channel_to_send):
+async def create_reminder(event: discord.ScheduledEvent, minutes_before_event: int, role_ids: list, event_channel_id: int, channel_to_send):
     """Create a reminder message for the event and schedule it to be sent to the "updates" channel at the specified time
     before the event starts.
 
@@ -133,7 +193,6 @@ async def create_reminder(event : discord.ScheduledEvent, minutes_before_event :
     :param event_channel_id: The ID of the channel the event is happening in
     :param channel_to_send: The channel to send the reminder message in (usually "updates")
     """
-
     reminder_message = ""
     # Mention all the roles from the event description
     for role in role_ids:
@@ -181,7 +240,6 @@ async def schedule_reminders(event, roles_to_ids, updates_channel):
 
         # Set the reminder times for the event by creating reminder functions with the parameters already set.
         # Store these reminder functions in a list which will then by called asynchronously
-
         reminder_functions = []
         for minutes_until in reminders:
             reminder_functions.append(create_reminder(event, minutes_until, list(roles_to_ids.values()),
@@ -197,7 +255,6 @@ def run_discord_bot():
     if they are under 18, it will assign them the "Minor" role. Lastly, it will add the birthday they provided to our
     Birthday Bot in the server.
     """
-
     intents = discord.Intents.all()
     intents.message_content = True
     bot = commands.Bot(command_prefix='!', intents=intents)
@@ -213,11 +270,23 @@ def run_discord_bot():
         role = get(member.server.roles, name="Test")
         await bot.add_roles(member, role)
 
+    @bot.tree.command(name="create_event", description="Create a scheduled server event", guild=discord.Object(id=apple_server))
+    async def create_event_command(
+        interaction: discord.Interaction,
+        name: str,
+        description: str,
+        start_date: str,
+        start_time: str,
+        duration_hours: float = 1.0,
+        channel: discord.VoiceChannel = None,
+        location: str = None
+    ):
+        return
+
     @bot.event
     async def on_ready():
         """ Logs to the console that Apple Bot is ready to use.
         """
-
         logger.info("Apple Bot is ready!")
         economy = Economy("./data/gambleData.json")
         await setup_economy_commands(bot, economy, apple_server)
@@ -225,8 +294,6 @@ def run_discord_bot():
         await setup_job_system(bot, economy, apple_server)
         await setup_fishing_commands(bot, economy, apple_server)
         await bot.tree.sync(guild=discord.Object(id="878771899612680243"))
-
-        # Why? I feel as that this should grab like `@bot.command` ?
 
         # If the bot was stopped previously, fetch the scheduled events for the server and create reminder messages that
         # will be sent at the specified reminder times
@@ -238,7 +305,6 @@ def run_discord_bot():
                 for event in events:
                     roles_to_ids = get_roles_to_ids(event)
                     updates_channel = bot.get_channel(updates_channel_ID)
-
                     await schedule_reminders(event, roles_to_ids, updates_channel)
 
 
@@ -306,93 +372,90 @@ def run_discord_bot():
 
         logger.debug(f"Message sent: {message}")
 
+        username = str(message.author)
+        ctx = await bot.get_context(message)
+        user_profile_picture = ctx.message.author.avatar.with_size(128)
+        print('hi')
+        channel = str(message.channel)
+        print('2')
+        birth_date = str(message.content)
+
+        date_format = '%m/%d/%Y'
         try:
-            username = str(message.author)
-            ctx = await bot.get_context(message)
-            user_profile_picture = ctx.message.author.avatar.with_size(128)
-            channel = str(message.channel)
-
-            birth_date = str(message.content)
-
-            date_format = '%m/%d/%Y'
-            try:
-                birth_date_obj = datetime.strptime(birth_date, date_format)
-                logger.info(f"User {username} entered the date {birth_date} in the {channel} channel.")
-            except Exception as e:
-                logger.error(f"Could not parse date. Error: {e}")
-                return
-
-            # Calculate the age of the user. If they're 18 or over, give them the "18+" role.
-            # If they're under 18, give them the "Minor" role.
-            age = calculate_age(birth_date_obj)
-
-            # Get the commands channel object to send the messages from the bot
-            bday_for_verification_channel = bot.get_channel(bday_for_verification_channel_ID)
-            if age < 0:
-                logger.info(f"User {username} entered an invalid birthdate.")
-                embedVar = discord.Embed(title="ERROR", description=f"Oops! You entered a birthdate that was in the "
-                                                                    f"future. Please enter in a valid birthdate in "
-                                                                    f"the {bday_for_verification_channel.name} channel."
-                                                                    , color=0xFF5733)
-                embedVar.add_field(name="Birthdate Entered", value=birth_date, inline=False)
-                await bday_for_verification_channel.send("<@" + str(message.author.id) + ">")
-                await bday_for_verification_channel.send(embed=embedVar)
-                return
-            elif age < minimum_age:
-                logger.info(f"User {username} is {age} years old, too young to be in this server...")
-                embedVar = discord.Embed(title="ALERT", description=f"Oops! It seems like you may be too young to be a "
-                                                                    f"member of {message.guild.name}. The minimum age "
-                                                                    f"to be in this server is {minimum_age}. A server "
-                                                                    f"moderator may contact you shortly to resolve this "
-                                                                    f"issue.", color=0xffff00)
-                await bday_for_verification_channel.send("<@" + str(message.author.id) + ">")
-                await bday_for_verification_channel.send(embed=embedVar)
-
-                # Alert the server admin about the user who is too young to be in the server
-                bot_alerts_channel = bot.get_channel(int(os.environ["BOT_ALERTS_CHANNEL_ID"]))
-                embedVar = discord.Embed(title="ALERT", description=f"User {username} has entered in the "
-                                                                    f"{bday_for_verification_channel.name} channel "
-                                                                    f"that they are {age} years old, below the current "
-                                                                    f"minimum age of {minimum_age}.", color=0xffff00)
-                embedVar.set_thumbnail(url=user_profile_picture)
-                await bot_alerts_channel.send("<@" + server_admin_ID + ">")
-                await bot_alerts_channel.send(embed=embedVar)
-                return
-            elif age >= 18:
-                is_adult = True
-            else:
-                is_adult = False
-
-            logger.info(f"User {username} is {age} years old")
-            await add_age_role(is_adult, message)
-
-            # Now we will send an embedded message that displays the username of the user, their birthday, their age,
-            # their role (either "Adult" or "Minor"), and the command that a moderator will need to input in order to
-            # add their birthday to the bot.
-
-            embedVar = discord.Embed(title="User", description=username, color=0xFF5733)
-
-            embedVar.add_field(name="Birthdate", value=birth_date, inline=False)
-            embedVar.add_field(name="Age", value=age, inline=False)
-            if is_adult:
-                embedVar.add_field(name="Role", value=f"{username} has been given the role: Adult!", inline=False)
-            else:
-                embedVar.add_field(name="Role", value=f"{username} has been given the role: Minor!", inline=False)
-
-            command_birth_date = birth_date_obj.strftime("%d %B")
-            command_to_run = f"/override set-birthday target:@{username} date:{command_birth_date}"
-            logger.debug(f"The command to add {username}'s birthday to the Birthday Bot is {command_to_run}")
-            embedVar.add_field(name="Command To Run", value=command_to_run, inline=False)
-
-            # Get the commands channel object to send the messages from the bot
-            commands_channel = bot.get_channel(commands_channel_ID)
-
-            embedVar.set_thumbnail(url=user_profile_picture)
-            await commands_channel.send("<@" + server_admin_ID + ">")
-            await commands_channel.send(embed=embedVar)
-
+            birth_date_obj = datetime.strptime(birth_date, date_format)
+            logger.info(f"User {username} entered the date {birth_date} in the {channel} channel.")
         except Exception as e:
-            logger.error(e)
+            logger.error(f"Could not parse date. Error: {e}")
+            return
+
+        # Calculate the age of the user. If they're 18 or over, give them the "18+" role.
+        # If they're under 18, give them the "Minor" role.
+        age = calculate_age(birth_date_obj)
+
+        # Get the commands channel object to send the messages from the bot
+        bday_for_verification_channel = bot.get_channel(bday_for_verification_channel_ID)
+        if age < 0:
+            logger.info(f"User {username} entered an invalid birthdate.")
+            embedVar = discord.Embed(title="ERROR", description=f"Oops! You entered a birthdate that was in the "
+                                                                f"future. Please enter in a valid birthdate in "
+                                                                f"the {bday_for_verification_channel.name} channel."
+                                                                , color=0xFF5733)
+            embedVar.add_field(name="Birthdate Entered", value=birth_date, inline=False)
+            await bday_for_verification_channel.send("<@" + str(message.author.id) + ">")
+            await bday_for_verification_channel.send(embed=embedVar)
+            return
+        elif age < minimum_age:
+            logger.info(f"User {username} is {age} years old, too young to be in this server...")
+            embedVar = discord.Embed(title="ALERT", description=f"Oops! It seems like you may be too young to be a "
+                                                                f"member of {message.guild.name}. The minimum age "
+                                                                f"to be in this server is {minimum_age}. A server "
+                                                                f"moderator may contact you shortly to resolve this "
+                                                                f"issue.", color=0xffff00)
+            await bday_for_verification_channel.send("<@" + str(message.author.id) + ">")
+            await bday_for_verification_channel.send(embed=embedVar)
+
+            # Alert the server admin about the user who is too young to be in the server
+            bot_alerts_channel = bot.get_channel(int(os.environ["BOT_ALERTS_CHANNEL_ID"]))
+            embedVar = discord.Embed(title="ALERT", description=f"User {username} has entered in the "
+                                                                f"{bday_for_verification_channel.name} channel "
+                                                                f"that they are {age} years old, below the current "
+                                                                f"minimum age of {minimum_age}.", color=0xffff00)
+            embedVar.set_thumbnail(url=user_profile_picture)
+            await bot_alerts_channel.send("<@" + server_admin_ID + ">")
+            await bot_alerts_channel.send(embed=embedVar)
+            return
+        elif age >= 18:
+            is_adult = True
+        else:
+            is_adult = False
+
+        logger.info(f"User {username} is {age} years old")
+        await add_age_role(is_adult, message)
+
+        # Now we will send an embedded message that displays the username of the user, their birthday, their age,
+        # their role (either "Adult" or "Minor"), and the command that a moderator will need to input in order to
+        # add their birthday to the bot.
+
+        embedVar = discord.Embed(title="User", description=username, color=0xFF5733)
+
+        embedVar.add_field(name="Birthdate", value=str(birth_date), inline=False)
+        embedVar.add_field(name="Age", value=str(age), inline=False)
+        if is_adult:
+            embedVar.add_field(name="Role", value=f"{username} has been given the role: Adult!", inline=False)
+        else:
+            embedVar.add_field(name="Role", value=f"{username} has been given the role: Minor!", inline=False)
+
+        command_birth_date = birth_date_obj.strftime("%d %B")
+        command_to_run = f"/override set-birthday target:@{username} date:{command_birth_date}"
+        logger.debug(f"The command to add {username}'s birthday to the Birthday Bot is {command_to_run}")
+        embedVar.add_field(name="Command To Run", value=command_to_run, inline=False)
+
+        # Get the commands channel object to send the messages from the bot
+        commands_channel = bot.get_channel(commands_channel_ID)
+
+        embedVar.set_thumbnail(url=user_profile_picture)
+        await commands_channel.send("<@" + server_admin_ID + ">")
+        await commands_channel.send(embed=embedVar)
 
     bot.run(TOKEN)
     logger.info("Apple Bot is shutting down...")
