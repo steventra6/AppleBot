@@ -320,8 +320,8 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
             color=color
         )
         embed.set_footer(text=f"Roll: {roll}/100 (Success chance: {success_chance}%)")
+        economy.set_cooldown(user_id, command_name, cooldown_duration)
 
-        # Set cooldown after steal attempt
 
         await interaction.response.send_message(embed=embed)
 
