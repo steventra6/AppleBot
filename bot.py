@@ -17,6 +17,7 @@ import asyncio
 import re
 import pytz
 from gamble import Economy, setup_economy_commands
+from more_gambling import setup_gambling_games
 
 from discord.ext import commands
 from discord.utils import get
@@ -218,6 +219,7 @@ def run_discord_bot():
         logger.info("Apple Bot is ready!")
         economy = Economy("./data/gambleData.json")
         await setup_economy_commands(bot, economy, apple_server)
+        await setup_gambling_games(bot, economy, apple_server)
         await bot.tree.sync(guild=discord.Object(id="878771899612680243"))
 
         # Why? I feel as that this should grab like `@bot.command` ?

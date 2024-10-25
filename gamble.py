@@ -1,26 +1,45 @@
-from datetime import datetime, timedelta
 import os
-from typing import Dict
-import discord
-import random
-from discord.ext import commands
 import json
+import random
+from typing import Dict, Any
+from datetime import datetime, timedelta
+import discord
 
 class Economy:
+    """
+    Economy class handles user balances and command cooldowns, storing data in a JSON file.
+    
+    Attributes:
+        save_file (str): The path to the file where economy data is stored.
+        balances (Dict[int, int]): A dictionary mapping user IDs to their balances.
+        cooldowns (Dict[int, Dict[str, Dict[str, Any]]]): A dictionary mapping user IDs to command cooldown data.
+    """
+    
     def __init__(self, save_file: str = "economy.json"):
+        """
+        Initialize the Economy class and load data from the specified JSON file.
+        
+        Args:
+            save_file (str): The file path where economy data will be saved and loaded from. Defaults to "economy.json".
+        """
         self.save_file = save_file
         self.balances: Dict[int, int] = {}
-        self.cooldowns: Dict[int, Dict[str, Dict[str, any]]] = {}
+        self.cooldowns: Dict[int, Dict[str, Dict[str, Any]]] = {}
         
+        # Ensure the directory exists where the save file will be stored
         os.makedirs(os.path.dirname(save_file), exist_ok=True)
         self.load_data()
 
     def load_data(self):
-        """Load balance and cooldown data from JSON file"""
+        """
+        Load balance and cooldown data from the JSON file specified in `save_file`.
+        If the file doesn't exist, the balances and cooldowns dictionaries are initialized as empty.
+        """
         try:
             if os.path.exists(self.save_file):
                 with open(self.save_file, 'r') as f:
                     data = json.load(f)
+                    # Convert keys back to integers (they were converted to strings in JSON)
                     self.balances = {int(k): v for k, v in data["balances"].items()}
                     self.cooldowns = {int(k): v for k, v in data.get("cooldowns", {}).items()}
             else:
@@ -32,7 +51,10 @@ class Economy:
             self.cooldowns = {}
 
     def save_data(self):
-        """Save balance and cooldown data to JSON file"""
+        """
+        Save the current state of balances and cooldowns to the JSON file.
+        If an error occurs during saving, it is printed to the console.
+        """
         try:
             data = {
                 "balances": self.balances,
@@ -44,15 +66,42 @@ class Economy:
             print(f"Error saving economy data: {e}")
 
     def get_balance(self, user_id: int) -> int:
+        """
+        Retrieve the balance for a specific user. If the user doesn't exist, returns the default balance of 1000.
+        
+        Args:
+            user_id (int): The user's unique ID.
+        
+        Returns:
+            int: The user's current balance.
+        """
         return self.balances.get(user_id, 1000)
     
     def update_balance(self, user_id: int, amount: int) -> int:
+        """
+        Update the balance for a specific user by adding the provided amount. The balance is saved to file afterward.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            amount (int): The amount to add to the user's current balance (can be positive or negative).
+        
+        Returns:
+            int: The user's new balance.
+        """
         current_balance = self.get_balance(user_id)
         self.balances[user_id] = current_balance + amount
         self.save_data()
         return self.balances[user_id]
 
     def set_cooldown(self, user_id: int, command: str, cooldown_duration: timedelta):
+        """
+        Set a cooldown for a specific command for a user. The cooldown will expire after the given duration.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command for which the cooldown is being set.
+            cooldown_duration (timedelta): The duration for which the cooldown will last.
+        """
         cooldown_time = datetime.now() + cooldown_duration
         if user_id not in self.cooldowns:
             self.cooldowns[user_id] = {}
@@ -62,6 +111,16 @@ class Economy:
         self.save_data()
 
     def is_on_cooldown(self, user_id: int, command: str) -> bool:
+        """
+        Check if a user is currently on cooldown for a specific command.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command to check the cooldown status for.
+        
+        Returns:
+            bool: True if the user is on cooldown, False otherwise.
+        """
         if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
             return False
         cooldown_str = self.cooldowns[user_id][command]["cooldown"]
@@ -69,14 +128,21 @@ class Economy:
         return datetime.now() < cooldown
 
     def get_cooldown_time(self, user_id: int, command: str) -> timedelta:
-        """Returns remaining cooldown time as a timedelta"""
+        """
+        Retrieve the remaining cooldown time for a specific command for a user.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command to get the remaining cooldown time for.
+        
+        Returns:
+            timedelta: The remaining cooldown time, or zero if no cooldown is active.
+        """
         if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
             return timedelta(0)
         cooldown_str = self.cooldowns[user_id][command]["cooldown"]
         cooldown = datetime.fromisoformat(cooldown_str)
         return max(timedelta(0), cooldown - datetime.now())
-
-
 
 async def setup_economy_commands(bot, economy: Economy, guild_id: str):
 
