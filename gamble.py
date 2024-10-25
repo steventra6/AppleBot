@@ -4,61 +4,71 @@ import random
 from typing import Dict, Any
 from datetime import datetime, timedelta
 import discord
+from discord.ext.commands import has_permissions, MissingPermissions
+
+import json
+import os
+from datetime import datetime, timedelta
+from typing import Dict, Any
 
 class Economy:
     """
     Economy class handles user balances and command cooldowns, storing data in a JSON file.
-    
+
     Attributes:
         save_file (str): The path to the file where economy data is stored.
         balances (Dict[int, int]): A dictionary mapping user IDs to their balances.
         cooldowns (Dict[int, Dict[str, Dict[str, Any]]]): A dictionary mapping user IDs to command cooldown data.
+        inventories (Dict[int, list]): A dictionary mapping user IDs to their inventories.
     """
-    
+
     def __init__(self, save_file: str = "economy.json"):
         """
         Initialize the Economy class and load data from the specified JSON file.
-        
+
         Args:
             save_file (str): The file path where economy data will be saved and loaded from. Defaults to "economy.json".
         """
         self.save_file = save_file
         self.balances: Dict[int, int] = {}
         self.cooldowns: Dict[int, Dict[str, Dict[str, Any]]] = {}
-        
-        # Ensure the directory exists where the save file will be stored
+        self.inventories: Dict[int, list] = {}
+
         os.makedirs(os.path.dirname(save_file), exist_ok=True)
         self.load_data()
 
     def load_data(self):
         """
-        Load balance and cooldown data from the JSON file specified in `save_file`.
-        If the file doesn't exist, the balances and cooldowns dictionaries are initialized as empty.
+        Load balance, cooldown, and inventory data from the JSON file specified in `save_file`.
+        If the file doesn't exist, the balances, cooldowns, and inventories dictionaries are initialized as empty.
         """
         try:
             if os.path.exists(self.save_file):
                 with open(self.save_file, 'r') as f:
                     data = json.load(f)
-                    # Convert keys back to integers (they were converted to strings in JSON)
                     self.balances = {int(k): v for k, v in data["balances"].items()}
                     self.cooldowns = {int(k): v for k, v in data.get("cooldowns", {}).items()}
+                    self.inventories = {int(k): v for k, v in data.get("inventories", {}).items()}
             else:
                 self.balances = {}
                 self.cooldowns = {}
+                self.inventories = {}
         except Exception as e:
             print(f"Error loading economy data: {e}")
             self.balances = {}
             self.cooldowns = {}
+            self.inventories = {}
 
     def save_data(self):
         """
-        Save the current state of balances and cooldowns to the JSON file.
+        Save the current state of balances, cooldowns, and inventories to the JSON file.
         If an error occurs during saving, it is printed to the console.
         """
         try:
             data = {
                 "balances": self.balances,
-                "cooldowns": self.cooldowns
+                "cooldowns": self.cooldowns,
+                "inventories": self.inventories
             }
             with open(self.save_file, 'w') as f:
                 json.dump(data, f, indent=4)
@@ -68,23 +78,23 @@ class Economy:
     def get_balance(self, user_id: int) -> int:
         """
         Retrieve the balance for a specific user. If the user doesn't exist, returns the default balance of 1000.
-        
+
         Args:
             user_id (int): The user's unique ID.
-        
+
         Returns:
             int: The user's current balance.
         """
         return self.balances.get(user_id, 1000)
-    
+
     def update_balance(self, user_id: int, amount: int) -> int:
         """
         Update the balance for a specific user by adding the provided amount. The balance is saved to file afterward.
-        
+
         Args:
             user_id (int): The user's unique ID.
             amount (int): The amount to add to the user's current balance (can be positive or negative).
-        
+
         Returns:
             int: The user's new balance.
         """
@@ -93,10 +103,28 @@ class Economy:
         self.save_data()
         return self.balances[user_id]
 
+    def remove_from_inventory(self, user_id: int, item: str):
+        if user_id in self.inventories and item in self.inventories[user_id]:
+            self.inventories[user_id].remove(item)
+            self.save_data()
+
+    def add_to_inventory(self, user_id: int, item: str):
+        """
+        Add an item to a user's inventory.
+
+        Args:
+            user_id (int): The user's unique ID.
+            item (str): The item to be added to the user's inventory.
+        """
+        if user_id not in self.inventories:
+            self.inventories[user_id] = []
+        self.inventories[user_id].append(item)
+        self.save_data()
+
     def set_cooldown(self, user_id: int, command: str, cooldown_duration: timedelta):
         """
         Set a cooldown for a specific command for a user. The cooldown will expire after the given duration.
-        
+
         Args:
             user_id (int): The user's unique ID.
             command (str): The command for which the cooldown is being set.
@@ -113,11 +141,11 @@ class Economy:
     def is_on_cooldown(self, user_id: int, command: str) -> bool:
         """
         Check if a user is currently on cooldown for a specific command.
-        
+
         Args:
             user_id (int): The user's unique ID.
             command (str): The command to check the cooldown status for.
-        
+
         Returns:
             bool: True if the user is on cooldown, False otherwise.
         """
@@ -127,24 +155,63 @@ class Economy:
         cooldown = datetime.fromisoformat(cooldown_str)
         return datetime.now() < cooldown
 
-    def get_cooldown_time(self, user_id: int, command: str) -> timedelta:
-        """
-        Retrieve the remaining cooldown time for a specific command for a user.
-        
-        Args:
-            user_id (int): The user's unique ID.
-            command (str): The command to get the remaining cooldown time for.
-        
-        Returns:
-            timedelta: The remaining cooldown time, or zero if no cooldown is active.
-        """
-        if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
-            return timedelta(0)
-        cooldown_str = self.cooldowns[user_id][command]["cooldown"]
-        cooldown = datetime.fromisoformat(cooldown_str)
-        return max(timedelta(0), cooldown - datetime.now())
 
 async def setup_economy_commands(bot, economy: Economy, guild_id: str):
+
+    @bot.tree.command(
+        name="balance",
+        description="Check your or another user's current balance",
+        guild=discord.Object(id=guild_id)
+    )
+    async def balance(interaction: discord.Interaction, user: discord.Member = None):
+        target_user = user if user else interaction.user
+        current_balance = economy.get_balance(target_user.id)
+        
+        if target_user == interaction.user:
+            description = f"Your current balance: {current_balance} coins"
+        else:
+            description = f"{target_user.display_name}'s current balance: {current_balance} coins"
+        
+        embed = discord.Embed(
+            title="💰 Balance Check",
+            description=description,
+            color=discord.Color.green()
+        )
+        
+        await interaction.response.send_message(embed=embed)
+
+    @bot.tree.command(
+        name="set",
+        description="Set your or another user's balance to a specific amount",
+        guild=discord.Object(id=guild_id)
+    )
+    async def setBalance(interaction: discord.Interaction, amount: int, user: discord.Member = None):
+        if interaction.user.name not in ["zrodevkaan", "kidaspire"]:
+            await interaction.response.send_message("You aren't the bot owners. Ask the bot owners for usage.")
+            return  
+
+        target_user = user if user else interaction.user
+        
+        if amount < 0:
+            await interaction.response.send_message("Amount cannot be negative!", ephemeral=True)
+            return
+        
+        current_balance = economy.get_balance(target_user.id)
+        difference = amount - current_balance
+        new_balance = economy.update_balance(target_user.id, difference)
+        
+        if target_user == interaction.user:
+            description = f"Your balance has been set to: {new_balance} coins"
+        else:
+            description = f"{target_user.display_name}'s balance has been set to: {new_balance} coins"
+        
+        embed = discord.Embed(
+            title="💰 Balance Updated",
+            description=description,
+            color=discord.Color.green()
+        )
+        
+        await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(
         name="gamble",
@@ -206,45 +273,6 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
         await interaction.response.send_message(embed=embed)
 
     @bot.tree.command(
-        name="balance",
-        description="Check your current balance",
-        guild=discord.Object(id=guild_id)
-    )
-    async def balance(interaction: discord.Interaction):
-        user_id = interaction.user.id
-        current_balance = economy.get_balance(user_id)
-        
-        embed = discord.Embed(
-            title="💰 Balance",
-            description=f"Your current balance: {current_balance} coins",
-            color=discord.Color.green()
-        )
-        
-        await interaction.response.send_message(embed=embed)
-
-    @bot.tree.command(
-        name="set",
-        description="Set your balance to a specific amount",
-        guild=discord.Object(id=guild_id)
-    )
-    async def setBalance(interaction: discord.Interaction, amount: int):
-        user_id = interaction.user.id
-        
-        if amount < 0:
-            await interaction.response.send_message("Amount cannot be negative!", ephemeral=False)
-            return
-            
-        new_balance = economy.update_balance(user_id, amount)
-        
-        embed = discord.Embed(
-            title="💰 Balance Updated",
-            description=f"Your balance has been set to: {new_balance} coins",
-            color=discord.Color.green()
-        )
-        
-        await interaction.response.send_message(embed=embed)
-
-    @bot.tree.command(
         name="steal",
         description="Attempt to steal coins from another user",
         guild=discord.Object(id=guild_id)
@@ -255,8 +283,16 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
         command_name = "steal"
         cooldown_duration = timedelta(minutes=10)
 
+        current_time = datetime.now().hour
+        target_balance = economy.get_balance(target_id)
+        steal_amount = random.randint(50, 300)
+
         if user_id == target_id:
             await interaction.response.send_message("You cannot steal from yourself!", ephemeral=True)
+            return
+        
+        if target_balance <= 0:
+            await interaction.response.send_message("You literally tried stealing air!", ephemeral=True)
             return
 
         if economy.is_on_cooldown(user_id, command_name):
@@ -268,10 +304,6 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
                 ephemeral=True
             )
             return
-
-        current_time = datetime.now().hour
-        target_balance = economy.get_balance(target_id)
-        steal_amount = random.randint(50, 300)
 
         if target_balance < steal_amount:
             await interaction.response.send_message(
@@ -286,7 +318,7 @@ async def setup_economy_commands(bot, economy: Economy, guild_id: str):
             success_chance = 60  # 60% success rate during the night
 
         roll = random.randint(1, 100)
-        if roll <= success_chance:  # Successful steal
+        if roll <= success_chance:
             economy.update_balance(user_id, steal_amount)
             economy.update_balance(target_id, -steal_amount)
             result = f"💸 You successfully stole {steal_amount} coins from {target.display_name}!"
