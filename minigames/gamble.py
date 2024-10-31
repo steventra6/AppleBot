@@ -1,0 +1,444 @@
+import os
+import json
+import random
+from typing import Dict, Any
+from datetime import datetime, timedelta
+import discord
+from discord.ext.commands import has_permissions, MissingPermissions
+from loguru import logger
+
+import json
+import os
+from datetime import datetime, timedelta
+from typing import Dict, Any
+
+BOT_OWNERS = os.getenv("BOT_OWNERS").split(",")
+class Economy:
+    """
+    Economy class handles user balances and command cooldowns, storing data in a JSON file.
+
+    Attributes:
+        save_file (str): The path to the file where economy data is stored.
+        balances (Dict[int, int]): A dictionary mapping user IDs to their balances.
+        cooldowns (Dict[int, Dict[str, Dict[str, Any]]]): A dictionary mapping user IDs to command cooldown data.
+        inventories (Dict[int, list]): A dictionary mapping user IDs to their inventories.
+    """
+
+    def __init__(self, save_file: str = "economy.json"):
+        """
+        Initialize the Economy class and load data from the specified JSON file.
+
+        Args:
+            save_file (str): The file path where economy data will be saved and loaded from. Defaults to "economy.json".
+        """
+        self.save_file = save_file
+        self.balances: Dict[int, int] = {}
+        self.cooldowns: Dict[int, Dict[str, Dict[str, Any]]] = {}
+        self.inventories: Dict[int, list] = {}
+
+        os.makedirs(os.path.dirname(save_file), exist_ok=True)
+        self.load_data()
+
+    def load_data(self):
+        """
+        Load balance, cooldown, and inventory data from the JSON file specified in `save_file`.
+        If the file doesn't exist, the balances, cooldowns, and inventories dictionaries are initialized as empty.
+        """
+        try:
+            if os.path.exists(self.save_file):
+                with open(self.save_file, 'r') as f:
+                    data = json.load(f)
+                    self.balances = {int(k): v for k, v in data["balances"].items()}
+                    self.cooldowns = {int(k): v for k, v in data.get("cooldowns", {}).items()}
+                    self.inventories = {int(k): v for k, v in data.get("inventories", {}).items()}
+            else:
+                self.balances = {}
+                self.cooldowns = {}
+                self.inventories = {}
+        except Exception as e:
+            logger.error(f"Error loading economy data: {e}")
+            #print(f"Error loading economy data: {e}")
+            self.balances = {}
+            self.cooldowns = {}
+            self.inventories = {}
+
+    def save_data(self):
+        """
+        Save the current state of balances, cooldowns, and inventories to the JSON file.
+        If an error occurs during saving, it is printed to the console.
+        """
+        try:
+            data = {
+                "balances": self.balances,
+                "cooldowns": self.cooldowns,
+                "inventories": self.inventories
+            }
+            with open(self.save_file, 'w') as f:
+                json.dump(data, f, indent=4)
+        except Exception as e:
+            logger.error(f"Error saving economy data: {e}")
+            #print(f"Error saving economy data: {e}")
+
+    def get_balance(self, user_id: int) -> int:
+        """
+        Retrieve the balance for a specific user. If the user doesn't exist, returns the default balance of 1000.
+
+        Args:
+            user_id (int): The user's unique ID.
+
+        Returns:
+            int: The user's current balance.
+        """
+        return self.balances.get(user_id, 1000)
+
+    def update_balance(self, user_id: int, amount: int) -> int:
+        """
+        Update the balance for a specific user by adding the provided amount. The balance is saved to file afterward.
+
+        Args:
+            user_id (int): The user's unique ID.
+            amount (int): The amount to add to the user's current balance (can be positive or negative).
+
+        Returns:
+            int: The user's new balance.
+        """
+        current_balance = self.get_balance(user_id)
+        self.balances[user_id] = current_balance + amount
+        self.save_data()
+        return self.balances[user_id]
+
+    def remove_from_inventory(self, user_id: int, item: str):
+        if user_id in self.inventories and item in self.inventories[user_id]:
+            self.inventories[user_id].remove(item)
+            self.save_data()
+
+    def add_to_inventory(self, user_id: int, item: str):
+        """
+        Add an item to a user's inventory.
+
+        Args:
+            user_id (int): The user's unique ID.
+            item (str): The item to be added to the user's inventory.
+        """
+        if user_id not in self.inventories:
+            self.inventories[user_id] = []
+        self.inventories[user_id].append(item)
+        self.save_data()
+
+    def set_cooldown(self, user_id: int, command: str, cooldown_duration: timedelta):
+        """
+        Set a cooldown for a specific command for a user. The cooldown will expire after the given duration.
+
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command for which the cooldown is being set.
+            cooldown_duration (timedelta): The duration for which the cooldown will last.
+        """
+        cooldown_time = datetime.now() + cooldown_duration
+        if user_id not in self.cooldowns:
+            self.cooldowns[user_id] = {}
+        self.cooldowns[user_id][command] = {
+            "cooldown": cooldown_time.isoformat()
+        }
+        self.save_data()
+
+    def is_on_cooldown(self, user_id: int, command: str) -> bool:
+        """
+        Check if a user is currently on cooldown for a specific command.
+
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command to check the cooldown status for.
+
+        Returns:
+            bool: True if the user is on cooldown, False otherwise.
+        """
+        if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
+            return False
+        cooldown_str = self.cooldowns[user_id][command]["cooldown"]
+        cooldown = datetime.fromisoformat(cooldown_str)
+        return datetime.now() < cooldown
+    
+    def get_cooldown_time(self, user_id: int, command: str) -> timedelta:
+        """
+        Retrieve the remaining cooldown time for a specific command for a user.
+        
+        Args:
+            user_id (int): The user's unique ID.
+            command (str): The command to get the remaining cooldown time for.
+        
+        Returns:
+            timedelta: The remaining cooldown time, or zero if no cooldown is active.
+        """
+        if user_id not in self.cooldowns or command not in self.cooldowns[user_id]:
+            return timedelta(0)
+        cooldown_str = self.cooldowns[user_id][command]["cooldown"]
+        cooldown = datetime.fromisoformat(cooldown_str)
+        return max(timedelta(0), cooldown - datetime.now())
+
+
+async def setup_economy_commands(bot, economy: Economy, guild_id: str):
+
+    @bot.tree.command(
+        name="balance",
+        description="Check your or another user's current balance",
+        guild=discord.Object(id=guild_id)
+    )
+    async def balance(interaction: discord.Interaction, user: discord.Member = None):
+        target_user = user if user else interaction.user
+        current_balance = economy.get_balance(target_user.id)
+        
+        if target_user == interaction.user:
+            logger.debug(f"{interaction.user.name}'s current balance is {current_balance} coins")
+            description = f"Your current balance: {current_balance} coins"
+        else:
+            logger.debug(f"{target_user.name}'s current balance is {current_balance} coins")
+            description = f"{target_user.display_name}'s current balance: {current_balance} coins"
+
+        embed = discord.Embed(
+            title="💰 Balance Check",
+            description=description,
+            color=discord.Color.green()
+        )
+        
+        await interaction.response.send_message(embed=embed)
+
+    @bot.tree.command(
+        name="set",
+        description="Set your or another user's balance to a specific amount",
+        guild=discord.Object(id=guild_id)
+    )
+    async def setBalance(interaction: discord.Interaction, amount: int, user: discord.Member = None):
+        if interaction.user.name not in BOT_OWNERS:
+            logger.error(f"{interaction.user.name} tried to use the /set command and they are not a bot owner!")
+            await interaction.response.send_message("You aren't the bot owners. Ask the bot owners for usage.")
+            return
+
+        target_user = user if user else interaction.user
+        
+        if amount < 0:
+            logger.error(f"{interaction.user.name} entered a negative amount for the balance: {amount}")
+            await interaction.response.send_message("Amount cannot be negative!", ephemeral=True)
+            return
+        
+        current_balance = economy.get_balance(target_user.id)
+        difference = amount - current_balance
+        new_balance = economy.update_balance(target_user.id, difference)
+        
+        if target_user == interaction.user:
+            logger.debug(f"{interaction.user.name}'s balance has changed from {current_balance} coins to {new_balance} coins")
+            description = f"Your balance has been set to: {new_balance} coins"
+        else:
+            logger.debug(
+                f"{target_user.name}'s balance has changed from {current_balance} coins to {new_balance} coins")
+            description = f"{target_user.display_name}'s balance has been set to: {new_balance} coins"
+        
+        embed = discord.Embed(
+            title="💰 Balance Updated",
+            description=description,
+            color=discord.Color.green()
+        )
+        
+        await interaction.response.send_message(embed=embed)
+
+    @bot.tree.command(
+        name="gamble",
+        description="gamble your coins! Use /gamble <amount>",
+        guild=discord.Object(id=guild_id)
+    )
+    async def gam(interaction: discord.Interaction, amount: int):
+        user_id = interaction.user.id
+        command_name = "gamble"
+        cooldown_duration = timedelta(seconds=2)
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            strignCause = f"{remaining_time.total_seconds()}"
+            logger.debug(
+                f"{interaction.user.name} is on cooldown for gambling. They must wait {strignCause.split('.')[0]} seconds...")
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {strignCause.split('.')[0]}.", ephemeral=True
+            )
+            return
+        
+        current_balance = economy.get_balance(user_id)
+        
+        if amount <= 0:
+            logger.error(f"{interaction.user.name} entered a negative amount to gamble: {amount}")
+            await interaction.response.send_message("You must gamble at least 1 coin!", ephemeral=True)
+            return
+        
+        if amount > current_balance:
+            logger.error(f"{interaction.user.name} tried to gamble {amount} coins when they only have {current_balance}!")
+            await interaction.response.send_message(f"You don't have enough coins! Your balance: {current_balance}", ephemeral=True)
+            return
+
+        roll = random.randint(1, 100)
+        
+        if roll <= 45:  # 45% -> lose all
+            economy.update_balance(user_id, -amount)
+            logger.debug(f"{interaction.user.name} lost {amount} coins! New balance: {economy.get_balance(user_id)}")
+            result = f"💸 You lost {amount} coins! New balance: {economy.get_balance(user_id)}"
+        elif roll <= 80:  # 35% -> 1.5x
+            winnings = int(amount * 1.5)
+            economy.update_balance(user_id, winnings - amount)
+            logger.debug(f"🎉 {interaction.user.name} won {winnings} coins! New balance: {economy.get_balance(user_id)}")
+            result = f"🎉 You won {winnings} coins! New balance: {economy.get_balance(user_id)}"
+        elif roll <= 95:  # 15% -> 2x
+            winnings = amount * 2
+            economy.update_balance(user_id, winnings - amount)
+            logger.debug(f"🎊 Double win! {interaction.user.name} won {winnings} coins! New balance: {economy.get_balance(user_id)}")
+            result = f"🎊 Double win! You won {winnings} coins! New balance: {economy.get_balance(user_id)}"
+        elif roll <= 99:  # 5% -> 3x
+            winnings = amount * 3
+            economy.update_balance(user_id, winnings + amount)
+            logger.debug(f"🌟 JACKPOT! Triple win! {interaction.user.name} won {winnings} coins! New balance: {economy.get_balance(user_id)}")
+            result = f"🌟 JACKPOT! Triple win! You won {winnings} coins! New balance: {economy.get_balance(user_id)}"
+        else: 
+            winnings = amount * 10
+            economy.update_balance(user_id, winnings + amount)
+            logger.debug(f"🌟 LUCKY ME CHARMS! 10x win! {interaction.user.name} won {winnings} coins! New balance: {economy.get_balance(user_id)}")
+            result = f"🌟 LUCKY ME CHARMS! 10x win! You won {winnings} coins! New balance: {economy.get_balance(user_id)}"
+        
+        embed = discord.Embed(
+            title="🎰 Gambling Results",
+            description=result,
+            color=discord.Color.gold() if roll > 45 else discord.Color.red()
+        )
+        embed.set_footer(text=f"Roll: {roll}/100")
+
+        economy.set_cooldown(user_id, command_name, cooldown_duration)
+        await interaction.response.send_message(embed=embed)
+
+    @bot.tree.command(
+        name="steal",
+        description="Attempt to steal coins from another user",
+        guild=discord.Object(id=guild_id)
+    )
+    async def steal(interaction: discord.Interaction, target: discord.Member):
+        user_id = interaction.user.id
+        target_id = target.id
+        command_name = "steal"
+        cooldown_duration = timedelta(minutes=10)
+
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            strignCause = f"{remaining_time.total_seconds()}"
+            logger.debug(
+                f"{interaction.user.name} is on cooldown for stealing. They must wait {strignCause.split('.')[0]} seconds...")
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {strignCause.split('.')[0]}.", ephemeral=True
+            )
+            return
+
+        current_time = datetime.now().hour
+        target_balance = economy.get_balance(target_id)
+        steal_amount = random.randint(50, 300)
+
+        if user_id == target_id:
+            logger.error(f"{interaction.user.name} tried to steal from themselves!")
+            await interaction.response.send_message("You cannot steal from yourself!", ephemeral=True)
+            return
+        
+        if target_balance <= 0:
+            logger.error(f"{interaction.user.name} tried stealing from {target.name}, but {target.name} has a zero balance!")
+            await interaction.response.send_message("You literally tried stealing air!", ephemeral=True)
+            return
+
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            hours, remainder = divmod(remaining_time.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            logger.debug(
+                f"{interaction.user.name} is on cooldown for stealing. They must wait {remaining_time.days} days, {hours} hours, {minutes} minutes.")
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {remaining_time.days} days, {hours} hours, {minutes} minutes.",
+                ephemeral=True
+            )
+            return
+
+        if target_balance < steal_amount:
+            logger.debug(f"{interaction.user.name} tried to steal {steal_amount} from {target.name} but {target.name} doesn't have enough coins to steal from! {target.name} only have {target_balance} coins.")
+            await interaction.response.send_message(
+                f"{target.display_name} doesn't have enough coins to steal from! They only have {target_balance} coins.",
+                ephemeral=True
+            )
+            return
+
+        if 6 <= current_time < 18:  # Daytime (6 AM - 6 PM)
+            success_chance = 30  # 30% success rate during the day
+        else:  # Nighttime (6 PM - 6 AM)
+            success_chance = 60  # 60% success rate during the night
+
+        roll = random.randint(1, 100)
+        if roll <= success_chance:
+            economy.update_balance(user_id, steal_amount)
+            economy.update_balance(target_id, -steal_amount)
+            logger.debug(f"{interaction.user.name} stole {steal_amount} coins from {target.name}!")
+            result = f"💸 You successfully stole {steal_amount} coins from {target.display_name}!"
+            color = discord.Color.green()
+        else:
+            fine_amount = random.randint(20, 100) 
+
+            caught_messages = [
+                f"You tripped on {target.display_name}'s wife's bra!",
+                "You stepped on a squeaky toy and alerted the guards!",
+                f"You got stuck in {target.display_name}'s laundry basket.",
+                "You sneezed while hiding, and everyone heard you!",
+                "A cat knocked over a vase and blamed you!",
+                f"While stealing, you got a call from {interaction.user.display_name}'s mom!",
+                "You slipped on a banana peel and fell into the trap!",
+                "You slipped on an ice cube and got covered in booboos! 🧊😭😭",
+                "The security camera spotted you breakdancing in the vault!",
+                f"{target.display_name}'s guard dog caught you!",
+                "You tried to steal coins, but ended up stealing a cursed artifact!"
+            ]
+
+            caught_message = random.choice(caught_messages)
+            logger.debug(f"{interaction.user.name} was caught trying to steal from {target.name} and was fined {fine_amount} coins!")
+            result = f"🚓 {caught_message} You were caught and fined {fine_amount} coins!"
+            economy.update_balance(user_id, -fine_amount)
+            color = discord.Color.red()
+
+        embed = discord.Embed(
+            title="💰 Stealing Attempt",
+            description=result,
+            color=color
+        )
+        embed.set_footer(text=f"Roll: {roll}/100 (Success chance: {success_chance}%)")
+        economy.set_cooldown(user_id, command_name, cooldown_duration)
+
+
+        await interaction.response.send_message(embed=embed)
+
+    @bot.tree.command(
+        name="daily",
+        description="Get some daily money, just remember money doesn't grow on trees",
+        guild=discord.Object(id=guild_id)
+    )
+    async def setDaily(interaction: discord.Interaction):
+        user_id = interaction.user.id
+        command_name = "daily"
+        cooldown_duration = timedelta(days=1)
+        
+        if economy.is_on_cooldown(user_id, command_name):
+            remaining_time = economy.get_cooldown_time(user_id, command_name)
+            hours, remainder = divmod(remaining_time.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            logger.debug(f"{interaction.user.name} is on cooldown for using /daily. They must wait {remaining_time.days} days, {hours} hours, {minutes} minutes.")
+            await interaction.response.send_message(
+                f"⏳ You are on cooldown! Please wait {remaining_time.days} days, {hours} hours, {minutes} minutes.",
+                ephemeral=True
+            )
+            return
+
+        reward_amount = 1000
+        economy.update_balance(user_id, reward_amount)
+        economy.set_cooldown(user_id, command_name, cooldown_duration)
+
+        embed = discord.Embed(
+            title="💰 Claimed Daily Balance",
+            description=f"Your current balance: {economy.get_balance(user_id)} coins",
+            color=discord.Color.gold()
+        )
+        
+        await interaction.response.send_message(embed=embed)

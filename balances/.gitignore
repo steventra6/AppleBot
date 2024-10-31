@@ -1,0 +1,4 @@
+# Do not push any logs generated in this directory
+*
+# Except this file
+!.gitignore
